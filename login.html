@@ -1,0 +1,907 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login · STACKLY</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      /* --- Color Palette --- */
+      :root {
+        --gold: #ecab23;
+        --white: #ffffff;
+        --dark: #16222d;
+        --light-bg: #f8fafc;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+        overflow-x: hidden;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: var(--light-bg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px 12px;
+        min-height: 100vh;
+      }
+
+      .text-gold {
+        color: var(--gold);
+      }
+      .bg-gold {
+        background-color: var(--gold);
+      }
+      .border-gold {
+        border-color: var(--gold);
+      }
+
+      /* --- Button Fill Animation --- */
+      .btn-stackly {
+        position: relative;
+        background-color: var(--dark);
+        color: var(--white);
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        overflow: hidden;
+        z-index: 1;
+        transition: color 0.4s ease-in-out;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        text-decoration: none;
+        width: 100%;
+        font-size: 0.95rem;
+      }
+      .btn-stackly::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 100%;
+        background-color: var(--gold);
+        z-index: -1;
+        transition: width 0.4s ease-in-out;
+      }
+      .btn-stackly:hover {
+        color: var(--dark);
+      }
+      .btn-stackly:hover::before {
+        width: 100%;
+      }
+      .btn-stackly i {
+        transition: transform 0.3s ease;
+      }
+      .btn-stackly:hover i {
+        transform: translateX(5px);
+      }
+
+      /* --- MAIN RECTANGULAR CARD --- */
+      .auth-card {
+        background: var(--white);
+        border-radius: 20px;
+        box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        width: 100%;
+        max-width: 1000px;
+        position: relative;
+      }
+
+      .row.g-0 {
+        margin: 0;
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      /* --- LEFT SIDE (Overview) --- */
+      .auth-left {
+        background: linear-gradient(145deg, var(--dark) 0%, #1e2f3d 100%);
+        color: var(--white);
+        padding: 35px 30px 25px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 280px;
+        overflow: hidden;
+        height: 100%;
+      }
+      .auth-left .bg-overlay-img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("https://images.unsplash.com/photo-1556761175-4b46a572b786?q=80&w=2070&auto=format&fit=crop");
+        background-size: cover;
+        background-position: center;
+        opacity: 0.12;
+        z-index: 0;
+      }
+      .auth-left .content {
+        position: relative;
+        z-index: 1;
+      }
+      .auth-left .logo-badge {
+        display: inline-block;
+        background: rgba(236, 171, 35, 0.15);
+        border: 1px solid var(--gold);
+        padding: 5px 16px;
+        border-radius: 50px;
+        color: var(--gold);
+        font-weight: 700;
+        letter-spacing: 1px;
+        margin-bottom: 12px;
+        font-size: 0.8rem;
+      }
+      .auth-left h2 {
+        font-size: 2rem;
+        font-weight: 800;
+        margin-bottom: 10px;
+        line-height: 1.2;
+      }
+      .auth-left p {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.9rem;
+        line-height: 1.5;
+        max-width: 320px;
+        margin-bottom: 6px;
+      }
+
+      /* --- TOP BAR: LOGO & BACK TO HOME --- */
+      .auth-top-bar {
+        position: absolute;
+        top: 16px;
+        left: 22px;
+        right: 22px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 10;
+      }
+      .back-home-btn {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 5px 12px;
+        border-radius: 50px;
+        color: var(--white);
+        text-decoration: none;
+        font-size: 0.75rem;
+        font-weight: 500;
+        transition: all 0.3s;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .back-home-btn:hover {
+        background: var(--gold);
+        color: var(--dark);
+      }
+      .top-bar-logo {
+        color: rgba(255, 255, 255, 0.8);
+        font-weight: 600;
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+      }
+      .top-bar-logo i {
+        margin-right: 6px;
+      }
+
+      /* --- RIGHT SIDE (Forms) --- */
+      .auth-right {
+        padding: 25px 30px 20px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        background: white;
+        height: 100%;
+        min-height: 400px;
+      }
+
+      /* --- SCROLLABLE FORM WRAPPER --- */
+      .form-scroll-wrapper {
+        flex: 1;
+        overflow-y: auto;
+        padding-right: 5px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 0;
+      }
+      .form-scroll-wrapper::-webkit-scrollbar {
+        width: 3px;
+      }
+      .form-scroll-wrapper::-webkit-scrollbar-track {
+        background: #f1f5f9;
+        border-radius: 10px;
+      }
+      .form-scroll-wrapper::-webkit-scrollbar-thumb {
+        background: var(--gold);
+        border-radius: 10px;
+      }
+
+      /* --- ANIMATION CONTAINERS --- */
+      .auth-form-container {
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 4px;
+      }
+      .auth-form-container.login-view {
+        display: flex;
+      }
+      .auth-form-container.signup-view {
+        display: none;
+      }
+
+      .auth-right h3 {
+        font-weight: 700;
+        font-size: 1.3rem;
+        color: var(--dark);
+        margin-bottom: 2px;
+      }
+      .auth-right .subtitle {
+        color: #6b7280;
+        font-size: 0.82rem;
+        margin-bottom: 12px;
+      }
+
+      /* Inputs */
+      .form-input-custom {
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        padding: 9px 14px;
+        width: 100%;
+        transition: all 0.3s;
+        background: var(--white);
+        font-size: 0.88rem;
+      }
+      .form-input-custom:focus {
+        outline: none;
+        border-color: var(--gold);
+        box-shadow: 0 0 0 4px rgba(236, 171, 35, 0.08);
+      }
+      .form-label-custom {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--dark);
+        margin-bottom: 2px;
+      }
+
+      /* --- ROLE BUTTONS --- */
+      .role-btn-group {
+        display: flex;
+        gap: 10px;
+        width: 100%;
+      }
+      .role-btn {
+        flex: 1;
+        padding: 8px 10px;
+        border: 2px solid #e5e7eb;
+        border-radius: 10px;
+        background: var(--white);
+        color: #6b7280;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        text-align: center;
+        font-size: 0.85rem;
+      }
+      .role-btn:hover {
+        border-color: var(--gold);
+        color: var(--dark);
+      }
+      .role-btn.active {
+        border-color: var(--gold);
+        background: var(--gold);
+        color: var(--white);
+      }
+      .role-btn i {
+        margin-right: 5px;
+      }
+
+      .mb-3 {
+        margin-bottom: 10px !important;
+      }
+      .mb-2 {
+        margin-bottom: 5px !important;
+      }
+
+      /* --- RESPONSIVE : desktop height + mobile fonts + top margin fix --- */
+
+      /* 1) Desktop: increase right side height (min-height) */
+      @media (min-width: 992px) {
+        .auth-right {
+          min-height: 520px;
+          padding: 30px 35px 25px;
+        }
+        .auth-left {
+          min-height: 520px;
+        }
+        .auth-card {
+          max-width: 1060px;
+        }
+        .auth-right h3 {
+          font-size: 1.5rem;
+        }
+        .form-input-custom {
+          padding: 11px 16px;
+          font-size: 0.95rem;
+        }
+        .btn-stackly {
+          padding: 14px 28px;
+          font-size: 1rem;
+        }
+      }
+
+      /* 2) Mobile (≤ 767px) : increase font sizes + top margin on body/card */
+      @media (max-width: 767px) {
+        /* Give more top space on mobile to avoid overflow */
+        body {
+          padding-top: 28px !important;
+          padding-bottom: 28px !important;
+          align-items: flex-start; /* helps with scrolling */
+        }
+        .auth-card {
+          margin-top: 10px;
+          margin-bottom: 10px;
+        }
+
+        .auth-right h3 {
+          font-size: 1.5rem !important;
+        }
+        .auth-right .subtitle {
+          font-size: 0.95rem !important;
+          margin-bottom: 14px;
+        }
+        .form-label-custom {
+          font-size: 0.95rem !important;
+          margin-bottom: 4px;
+        }
+        .form-input-custom {
+          font-size: 1rem !important;
+          padding: 12px 16px !important;
+          border-radius: 12px;
+        }
+        .role-btn {
+          font-size: 1rem !important;
+          padding: 10px 12px !important;
+        }
+        .btn-stackly {
+          font-size: 1.05rem !important;
+          padding: 14px 20px !important;
+        }
+        .auth-right .toggle-link,
+        .auth-right .text-gold.small,
+        .auth-right .toggle-link span {
+          font-size: 0.95rem !important;
+        }
+        .auth-right .subtitle {
+          font-size: 0.95rem;
+        }
+        .auth-right .mb-3 {
+          margin-bottom: 14px !important;
+        }
+        .auth-right {
+          padding: 20px 18px 16px;
+          min-height: 420px;
+        }
+        .auth-left {
+          min-height: 200px;
+        }
+        .auth-left h2 {
+          font-size: 1.8rem;
+        }
+        .auth-left p {
+          font-size: 0.95rem;
+        }
+        /* top bar spacing on mobile */
+        .auth-top-bar {
+          top: 12px;
+          left: 18px;
+          right: 18px;
+        }
+      }
+
+      /* small phones: keep it readable */
+      @media (max-width: 480px) {
+        body {
+          padding-top: 20px !important;
+          padding-bottom: 20px !important;
+        }
+        .auth-card {
+          margin-top: 8px;
+          margin-bottom: 8px;
+        }
+        .auth-right h3 {
+          font-size: 1.4rem !important;
+        }
+        .form-input-custom {
+          font-size: 0.95rem !important;
+          padding: 10px 14px !important;
+        }
+        .role-btn {
+          font-size: 0.9rem !important;
+          padding: 8px 10px !important;
+        }
+        .btn-stackly {
+          font-size: 0.95rem !important;
+        }
+        .auth-right {
+          padding: 16px 14px 12px;
+          min-height: 360px;
+        }
+      }
+
+      /* keep original left/right layout for very small */
+      @media (max-width: 576px) {
+        .auth-left {
+          min-height: 140px;
+          padding: 14px 14px 12px;
+        }
+        .auth-left h2 {
+          font-size: 1.2rem;
+        }
+        .auth-left p {
+          font-size: 0.8rem;
+        }
+        .auth-right {
+          min-height: 380px;
+        }
+        /* extra top space for very small screens */
+        body {
+          padding-top: 16px !important;
+          padding-bottom: 16px !important;
+        }
+        .auth-card {
+          margin-top: 6px;
+          margin-bottom: 6px;
+        }
+      }
+
+      @media (max-width: 400px) {
+        body {
+          padding-top: 12px !important;
+          padding-bottom: 12px !important;
+        }
+        .auth-card {
+          margin-top: 4px;
+          margin-bottom: 4px;
+        }
+        .auth-right {
+          min-height: 340px;
+          padding: 12px 10px 8px;
+        }
+        .auth-right h3 {
+          font-size: 1.3rem !important;
+        }
+        .form-input-custom {
+          font-size: 0.9rem !important;
+          padding: 8px 12px !important;
+        }
+        .role-btn {
+          font-size: 0.8rem !important;
+        }
+        .btn-stackly {
+          font-size: 0.85rem !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="auth-card" data-aos="fade-up" data-aos-duration="1000">
+      <div class="row g-0">
+        <!-- LEFT SIDE -->
+        <div class="col-lg-5 col-12">
+          <div class="auth-left">
+            <div class="bg-overlay-img"></div>
+            <div class="auth-top-bar">
+              <span class="top-bar-logo"
+                ><i class="fas fa-layer-group"></i>STACKLY</span
+              >
+              <a href="./index.html" class="back-home-btn"
+                ><i class="fas fa-arrow-left"></i> Home</a
+              >
+            </div>
+            <div class="content">
+              <div class="logo-badge" style="margin-top: 30px">
+                <i class="fas fa-rocket me-1"></i>Payroll Solutions
+              </div>
+              <h2>Streamline Your<br />Payroll Today</h2>
+              <p>
+                Join thousands of businesses trusting STACKLY for seamless
+                payroll processing, tax compliance, and financial growth.
+              </p>
+              <div class="mt-3 d-flex gap-3 align-items-center">
+                <div
+                  class="bg-white/10 rounded-circle p-2"
+                  style="
+                    padding: 4px !important;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 22px;
+                    height: 22px;
+                  "
+                >
+                  <i
+                    class="fas fa-check-circle text-gold"
+                    style="font-size: 0.8rem"
+                  ></i>
+                </div>
+                <span class="small text-white-50" style="font-size: 0.75rem"
+                  >Secure & Reliable Platform</span
+                >
+              </div>
+              <div class="mt-1 d-flex gap-3 align-items-center">
+                <div
+                  class="bg-white/10 rounded-circle p-2"
+                  style="
+                    padding: 4px !important;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 22px;
+                    height: 22px;
+                  "
+                >
+                  <i
+                    class="fas fa-check-circle text-gold"
+                    style="font-size: 0.8rem"
+                  ></i>
+                </div>
+                <span class="small text-white-50" style="font-size: 0.75rem"
+                  >Real-time Role Management</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT SIDE (FORMS) -->
+        <div class="col-lg-7 col-12">
+          <div class="auth-right">
+            <div class="form-scroll-wrapper" id="formScrollWrapper">
+              <!-- LOGIN FORM -->
+              <div id="loginContainer" class="auth-form-container login-view">
+                <h3>Welcome Back</h3>
+                <p class="subtitle">Log in to access your dashboard.</p>
+                <form id="loginForm">
+                  <div class="mb-3">
+                    <label class="form-label-custom">Email Address</label>
+                    <input
+                      type="email"
+                      class="form-input-custom"
+                      id="loginEmail"
+                      placeholder="you@example.com"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label-custom">Password</label>
+                    <input
+                      type="password"
+                      class="form-input-custom"
+                      id="loginPassword"
+                      placeholder="••••••••"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label-custom mb-2">I am a...</label>
+                    <div class="role-btn-group" id="loginRoleGroup">
+                      <button
+                        type="button"
+                        class="role-btn"
+                        data-value="admin"
+                        onclick="selectRole('login', 'admin')"
+                      >
+                        <i class="fas fa-user-shield"></i> Admin
+                      </button>
+                      <button
+                        type="button"
+                        class="role-btn"
+                        data-value="user"
+                        onclick="selectRole('login', 'user')"
+                      >
+                        <i class="fas fa-user"></i> User
+                      </button>
+                    </div>
+                    <input type="hidden" id="loginRole" value="" />
+                  </div>
+                  <div
+                    class="d-flex justify-content-between align-items-center mb-3"
+                  >
+                    <a
+                      href="./404.html"
+                      class="text-gold small fw-semibold text-decoration-none"
+                      style="font-size: 0.78rem"
+                      >Forgot Password?</a
+                    >
+                    <span
+                      class="toggle-link small"
+                      onclick="switchForm('signup')"
+                      style="
+                        cursor: pointer;
+                        color: #6b7280;
+                        font-size: 0.78rem;
+                      "
+                      >New here?
+                      <span style="color: var(--gold); font-weight: 600"
+                        >Sign Up</span
+                      ></span
+                    >
+                  </div>
+                  <button type="submit" class="btn-stackly">
+                    Login <i class="fas fa-arrow-right"></i>
+                  </button>
+                </form>
+              </div>
+
+              <!-- SIGNUP FORM -->
+              <div id="signupContainer" class="auth-form-container signup-view">
+                <h3>Create Account</h3>
+                <p class="subtitle">Start your payroll journey with STACKLY.</p>
+                <form id="signupForm">
+                  <div class="mb-3">
+                    <label class="form-label-custom">Full Name</label>
+                    <input
+                      type="text"
+                      class="form-input-custom"
+                      id="signupName"
+                      placeholder="John Doe"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label-custom">Email Address</label>
+                    <input
+                      type="email"
+                      class="form-input-custom"
+                      id="signupEmail"
+                      placeholder="you@example.com"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label-custom">Password</label>
+                    <input
+                      type="password"
+                      class="form-input-custom"
+                      id="signupPassword"
+                      placeholder="Create password"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label-custom">Confirm Password</label>
+                    <input
+                      type="password"
+                      class="form-input-custom"
+                      id="signupConfirmPassword"
+                      placeholder="Confirm password"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label-custom mb-2">Account Type</label>
+                    <div class="role-btn-group" id="signupRoleGroup">
+                      <button
+                        type="button"
+                        class="role-btn"
+                        data-value="admin"
+                        onclick="selectRole('signup', 'admin')"
+                      >
+                        <i class="fas fa-user-shield"></i> Admin
+                      </button>
+                      <button
+                        type="button"
+                        class="role-btn"
+                        data-value="user"
+                        onclick="selectRole('signup', 'user')"
+                      >
+                        <i class="fas fa-user"></i> User
+                      </button>
+                    </div>
+                    <input type="hidden" id="signupRole" value="" />
+                  </div>
+                  <div
+                    class="d-flex justify-content-between align-items-center mb-3"
+                  >
+                    <span
+                      class="toggle-link small"
+                      onclick="switchForm('login')"
+                      style="
+                        cursor: pointer;
+                        color: #6b7280;
+                        font-size: 0.78rem;
+                      "
+                      >Already a member?
+                      <span style="color: var(--gold); font-weight: 600"
+                        >Login</span
+                      ></span
+                    >
+                  </div>
+                  <button type="submit" class="btn-stackly">
+                    Create Account <i class="fas fa-arrow-right"></i>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <script>
+      AOS.init({ duration: 800, once: true, offset: 100 });
+
+      // --- Role Selection ---
+      function selectRole(formType, value) {
+        const groupId =
+          formType === "login" ? "loginRoleGroup" : "signupRoleGroup";
+        const inputId = formType === "login" ? "loginRole" : "signupRole";
+        const buttons = document
+          .getElementById(groupId)
+          .querySelectorAll(".role-btn");
+        buttons.forEach((btn) => btn.classList.remove("active"));
+        const selected = document
+          .getElementById(groupId)
+          .querySelector(`[data-value="${value}"]`);
+        if (selected) selected.classList.add("active");
+        document.getElementById(inputId).value = value;
+      }
+
+      // --- GSAP Switch with scroll reset ---
+      let isAnimating = false;
+      function switchForm(type) {
+        if (isAnimating) return;
+        isAnimating = true;
+        const login = document.getElementById("loginContainer");
+        const signup = document.getElementById("signupContainer");
+        const wrapper = document.getElementById("formScrollWrapper");
+
+        wrapper.scrollTop = 0;
+
+        if (type === "signup") {
+          signup.style.display = "flex";
+          signup.style.opacity = "0";
+          signup.style.transform = "translateX(50px)";
+          gsap.to(login, {
+            x: -50,
+            opacity: 0,
+            duration: 0.35,
+            ease: "power2.inOut",
+            onComplete: () => {
+              login.style.display = "none";
+            },
+          });
+          gsap.to(signup, {
+            x: 0,
+            opacity: 1,
+            duration: 0.35,
+            ease: "power2.inOut",
+            delay: 0.15,
+            onComplete: () => {
+              isAnimating = false;
+            },
+          });
+        } else {
+          login.style.display = "flex";
+          login.style.opacity = "0";
+          login.style.transform = "translateX(50px)";
+          gsap.to(signup, {
+            x: -50,
+            opacity: 0,
+            duration: 0.35,
+            ease: "power2.inOut",
+            onComplete: () => {
+              signup.style.display = "none";
+            },
+          });
+          gsap.to(login, {
+            x: 0,
+            opacity: 1,
+            duration: 0.35,
+            ease: "power2.inOut",
+            delay: 0.15,
+            onComplete: () => {
+              isAnimating = false;
+            },
+          });
+        }
+      }
+
+      // --- Login ---
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const role = document.getElementById("loginRole").value;
+          if (!role) {
+            alert("Please select a role (Admin or User).");
+            return;
+          }
+          const userData = {
+            email: document.getElementById("loginEmail").value,
+            role: role,
+            loggedInAt: new Date().toISOString(),
+          };
+          localStorage.setItem("stacklyUser", JSON.stringify(userData));
+          window.location.href =
+            role === "admin" ? "./admin.html" : "./user.html";
+        });
+
+      // --- Signup ---
+      document
+        .getElementById("signupForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const name = document.getElementById("signupName").value;
+          const email = document.getElementById("signupEmail").value;
+          const password = document.getElementById("signupPassword").value;
+          const confirm = document.getElementById(
+            "signupConfirmPassword",
+          ).value;
+          const role = document.getElementById("signupRole").value;
+          if (!name || !email || !password || !confirm || !role) {
+            alert("Please fill in all fields and select a role.");
+            return;
+          }
+          if (password !== confirm) {
+            alert("Passwords do not match!");
+            return;
+          }
+          alert(
+            "Account created successfully! Please login with your new credentials.",
+          );
+          document.getElementById("signupForm").reset();
+          document
+            .querySelectorAll(".role-btn")
+            .forEach((btn) => btn.classList.remove("active"));
+          document.getElementById("signupRole").value = "";
+          switchForm("login");
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en" class="h-full scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 ·Page Not Found</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Google Fonts: Plus Jakarta Sans + Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <!-- AOS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+    <style>
+      /* ===== ROOT PALETTE ===== */
+      :root {
+        --gold: #ecab23;
+        --white: #ffffff;
+        --dark: #16222d;
+        --text-gray: #6c757d;
+        --bg-light-gray: #f8f9fa;
+        --process-bg: #f4f2ee;
+      }
+
+      /* ===== GLOBAL ===== */
+      .pageWrapper {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        background: var(--bg-light-gray);
+        color: var(--dark);
+        overflow-x: hidden;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0.25rem;
+      }
+
+      /* ===== BUTTONS – left-to-right fill ===== */
+
+      /* Primary button (gold) */
+      .fresh-btn-primary {
+        position: relative;
+        overflow: hidden;
+        background: var(--gold);
+        color: var(--dark);
+        font-weight: 700;
+        border: none;
+        transition:
+          color 0.3s ease,
+          box-shadow 0.3s ease,
+          transform 0.2s ease;
+        z-index: 1;
+        box-shadow: 0 8px 24px -6px rgba(236, 171, 35, 0.4);
+      }
+      .fresh-btn-primary::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 100%;
+        background: var(--dark); /* dark fill */
+        transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        z-index: -1;
+        border-radius: 9999px;
+      }
+      .fresh-btn-primary:hover::before {
+        width: 100%;
+      }
+      .fresh-btn-primary:hover {
+        color: var(--white);
+        box-shadow: 0 12px 28px -8px rgba(22, 34, 45, 0.5);
+        transform: translateY(-2px);
+      }
+
+      /* Secondary button (outline dark) */
+      .fresh-btn-secondary {
+        position: relative;
+        overflow: hidden;
+        background: transparent;
+        color: var(--dark);
+        font-weight: 700;
+        border: 2px solid var(--dark);
+        transition:
+          color 0.3s ease,
+          border-color 0.3s ease,
+          box-shadow 0.3s ease,
+          transform 0.2s ease;
+        z-index: 1;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+      }
+      .fresh-btn-secondary::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 100%;
+        background: var(--dark);
+        transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        z-index: -1;
+        border-radius: 9999px;
+      }
+      .fresh-btn-secondary:hover::before {
+        width: 100%;
+      }
+      .fresh-btn-secondary:hover {
+        color: var(--white);
+        border-color: var(--dark);
+        box-shadow: 0 8px 24px -6px rgba(22, 34, 45, 0.3);
+        transform: translateY(-2px);
+      }
+
+      /* ===== FLOATING 404 ANIMATION ===== */
+      @keyframes float404 {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+      .whyFloat404 {
+        animation: float404 3s ease-in-out infinite;
+      }
+
+      /* fallback SVG */
+      .fallback-svg {
+        display: none;
+      }
+    </style>
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['"Plus Jakarta Sans"', "sans-serif"],
+              inter: ["Inter", "sans-serif"],
+            },
+            colors: {
+              gold: "#ecab23",
+              dark: "#16222d",
+              textGray: "#6c757d",
+              bgLight: "#f8f9fa",
+              processBg: "#f4f2ee",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+
+  <body>
+    <div class="pageWrapper">
+      <!-- ========================================================== -->
+      <!-- 404 CONTENT – custom palette                               -->
+      <!-- ========================================================== -->
+      <section
+        class="py-12 px-4 sm:px-8 max-w-4xl mx-auto w-full text-center flex flex-col items-center justify-center relative z-10"
+        id="errorSection"
+      >
+        <!-- 404 Graphic -->
+        <div class="w-full max-w-lg mb-8 relative">
+          <img
+            src="./assets/404.webp"
+            alt="404 Page Not Found"
+            class="w-full h-auto drop-shadow-sm"
+            onerror="
+              this.style.display = 'none';
+              document.getElementById('fallbackSvg').style.display = 'block';
+            "
+          />
+          <!-- Fallback SVG (gold + dark) -->
+          <div id="fallbackSvg" style="display: none">
+            <svg
+              viewBox="0 0 600 320"
+              class="w-full h-auto drop-shadow-sm"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M342 62C345 56 352 56 355 62C358 56 365 56 368 62C365 67 362 67 355 65C348 67 345 67 342 62Z"
+                fill="#ecab23"
+                opacity="0.9"
+              />
+              <path
+                d="M378 45C381 39 388 39 391 45C394 39 401 39 404 45C401 50 398 50 391 48C384 50 381 50 378 45Z"
+                fill="#ecab23"
+                opacity="0.9"
+              />
+              <path
+                d="M386 78C388 74 393 74 395 78C397 74 402 74 404 78C402 82 400 82 395 80C390 82 388 82 386 78Z"
+                fill="#ecab23"
+                opacity="0.9"
+              />
+              <path
+                d="M182 82H134L64 210H108L130 168H206L228 210H272L182 82ZM168 134L192 162H144L168 134Z"
+                fill="#ecab23"
+              />
+              <path
+                d="M375 80C315 80 286 122 286 145C286 168 315 210 375 210C435 210 464 168 464 145C464 122 435 80 375 80ZM375 182C342 182 328 158 328 145C328 132 342 108 375 108C408 108 422 132 422 145C422 158 408 182 375 182Z"
+                fill="#ecab23"
+              />
+              <path
+                d="M574 82H526L456 210H500L522 168H598L620 210H664L574 82ZM560 134L584 162H536L560 134Z"
+                fill="#ecab23"
+              />
+              <path
+                d="M20 220C20 205 32 193 47 193C52 193 57 195 62 198C70 188 84 185 96 193C102 187 111 183 120 183C136 183 150 195 152 211C160 208 170 210 176 216C185 212 196 215 201 223C212 222 221 229 221 240H20C20 230 20 225 20 220Z"
+                fill="#f4f2ee"
+              />
+              <path d="M0 240H600V300H0V240Z" fill="#f4f2ee" />
+              <path
+                d="M80 230C80 210 96 194 116 194C124 194 131 197 137 201C147 189 165 186 180 196C188 188 201 185 212 191C228 187 244 199 246 216C256 213 268 217 274 225C285 221 298 226 303 236C316 235 326 244 326 256H80C80 245 80 235 80 230Z"
+                fill="#f4f2ee"
+              />
+              <path
+                d="M280 225C280 205 296 189 316 189C324 189 331 192 337 196C347 184 365 181 380 191C388 183 401 180 412 186C428 182 444 194 446 211C456 208 468 212 474 220C485 216 498 221 503 231C516 230 526 239 526 251H280C280 240 280 230 280 225Z"
+                fill="#f4f2ee"
+              />
+            </svg>
+          </div>
+        </div>
+
+        <!-- Texts -->
+        <div class="space-y-4 mb-10 max-w-xl mx-auto">
+          <h1
+            class="text-3xl sm:text-5xl font-extrabold text-[#16222d] tracking-tight"
+          >
+            Oooop! Page not found
+          </h1>
+          <p class="text-[#6c757d] text-sm sm:text-base leading-relaxed">
+            You are here because you entered the address of a page that no
+            longer exists or has been moved to a different address
+          </p>
+        </div>
+
+        <!-- ===== BUTTONS with left→right fill (gold / dark) ===== -->
+        <div
+          class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-md mx-auto"
+        >
+          <!-- Go to Home – gold primary -->
+          <a
+            href="./index.html"
+            class="fresh-btn-primary inline-flex items-center justify-center gap-3 py-4 px-8 rounded-full text-sm sm:text-base w-full sm:w-auto"
+          >
+            <span>Go to Home Page</span>
+            <div
+              class="w-7 h-7 rounded-full bg-white/20 group-hover:bg-white group-hover:text-[#16222d] text-[#16222d] flex items-center justify-center transition-all duration-300"
+            >
+              <svg
+                class="w-3.5 h-3.5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
+                />
+              </svg>
+            </div>
+          </a>
+
+          <!-- Go Back – outline dark -->
+          <button
+            onclick="window.history.back()"
+            class="fresh-btn-secondary inline-flex items-center justify-center gap-3 py-4 px-8 rounded-full text-sm sm:text-base w-full sm:w-auto cursor-pointer"
+          >
+            <svg
+              class="w-4 h-4 transition-transform duration-300 group-hover:-translate-x-1"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
+              />
+            </svg>
+            <span>Go Back</span>
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <!-- ========================================================== -->
+    <!-- SCRIPTS                                                    -->
+    <!-- ========================================================== -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        AOS.init({ once: true, offset: 50 });
+      });
+
+      window.addEventListener("load", () => {
+        gsap.from("#errorSection > *", {
+          y: 40,
+          opacity: 0,
+          duration: 1,
+          stagger: 0.2,
+          ease: "power3.out",
+        });
+      });
+    </script>
+  </body>
+</html>

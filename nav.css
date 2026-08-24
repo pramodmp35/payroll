@@ -1,0 +1,191 @@
+/* ===== NEW COLOR PALETTE ===== */
+:root {
+  --gold: #ecab23;
+  --white: #ffffff;
+  --dark: #16222d;
+  --text-gray: #6c757d;
+  --bg-light-blue: #f0f5fc;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  overflow-x: hidden;
+  background-color: var(--bg-light-blue);
+}
+
+/* ---- Brand Colors (gold based) ---- */
+.bg-stackly-gold {
+  background-color: var(--gold);
+}
+.text-stackly-gold {
+  color: var(--gold);
+}
+.hover-stackly-gold:hover {
+  color: var(--gold);
+}
+.border-stackly-gold {
+  border-color: var(--gold);
+}
+
+/* ---- Dark / Navy ---- */
+.bg-stackly-dark {
+  background-color: var(--dark);
+}
+.text-stackly-dark {
+  color: var(--dark);
+}
+.hover-stackly-dark:hover {
+  color: var(--dark);
+}
+
+/* ---- Light blue background ---- */
+.bg-stackly-light-blue {
+  background-color: var(--bg-light-blue);
+}
+
+/* ---- Text gray ---- */
+.text-stackly-gray {
+  color: var(--text-gray);
+}
+
+/* ---- Mobile menu transition ---- */
+#nav-mobile-menu {
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
+}
+
+/* ---- 3D Front-Flip Hover Effect for Nav Links (with icons) ---- */
+.nav-link-3d {
+  perspective: 1000px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.nav-link-inner {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+.nav-link-inner span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  backface-visibility: hidden;
+}
+.nav-link-inner .back-face {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: rotateX(90deg);
+  transform-origin: bottom;
+  color: var(--gold);
+}
+.nav-link-3d:hover .nav-link-inner {
+  transform: rotateX(-90deg) translateY(-2px);
+}
+
+/* ---- Fill-From-Left Hover Effect for Contact Button ---- */
+.nav-contact-btn {
+  position: relative;
+  background-color: var(--gold);
+  overflow: hidden;
+  transition: color 0.4s ease;
+}
+.nav-contact-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background-color: var(--dark);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
+}
+.nav-contact-btn:hover::before {
+  transform: translateX(100%);
+}
+.nav-contact-btn .relative {
+  position: relative;
+  z-index: 2;
+}
+
+/* ---- Social icon hover effects (reused for mobile) ---- */
+.social-icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: rgba(22, 34, 45, 0.1);
+  transition: all 0.25s ease;
+  color: var(--dark);
+  text-decoration: none;
+}
+.social-icon-link:hover {
+  background-color: var(--dark);
+  color: var(--gold);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+.social-icon-link svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  stroke: none;
+  flex-shrink: 0;
+}
+/* Gold variant for the bar */
+.social-icon-link.gold-hover:hover {
+  background-color: var(--gold);
+  color: var(--white);
+  box-shadow: 0 4px 14px rgba(236, 171, 35, 0.35);
+}
+
+/* ---- Mobile social icons (inside hamburger) ---- */
+.mobile-social-icons a {
+  width: 40px;
+  height: 40px;
+  background-color: rgba(22, 34, 45, 0.08);
+  color: var(--dark);
+}
+.mobile-social-icons a:hover {
+  background-color: var(--gold);
+  color: var(--white);
+  box-shadow: 0 4px 14px rgba(236, 171, 35, 0.3);
+}
+
+/* ---- Scrollbar tweak ---- */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-light-blue);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--gold);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #c99a1e;
+}
+
+/* ---- Nav link icons size ---- */
+.nav-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.nav-link-inner .back-face .nav-icon {
+  stroke: currentColor;
+}

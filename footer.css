@@ -1,0 +1,49 @@
+:root {
+  --gold: #ecab23;
+  --white: #ffffff;
+  --dark: #16222d;
+  --text-gray: #6c757d;
+  --bg-light-blue: #f0f5fc;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background-color: var(--dark);
+  color: var(--text-gray);
+  overflow-x: hidden;
+}
+
+/* Newsletter banner gradient matching custom palette */
+.newsletter-banner {
+  background: linear-gradient(135deg, #1b2a3a 0%, #16222d 50%, #111a24 100%);
+  border: 1px solid rgba(236, 171, 35, 0.2);
+}
+
+.footer-bg {
+  background: linear-gradient(180deg, #16222d 0%, #0d141c 100%);
+  position: relative;
+}
+
+.footer-bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at 85% 70%,
+    rgba(236, 171, 35, 0.04) 0%,
+    transparent 60%
+  );
+  pointer-events: none;
+}
+
+/* Enhanced Link hover effect with slide & color transition */
+.footer-link {
+  transition: all 0.3s ease-in-out;
+}
+.footer-link:hover {
+  color: #ecab23;
+  transform: translateX(6px);
+}

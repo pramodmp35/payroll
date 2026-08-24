@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tolak Footer Clone</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Bootstrap 5 CSS CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome for Social & UI Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- AOS Animation Library CDN -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+    <!-- Custom Theme Colors & Tailwind Configuration -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              tolakDark: "#16222d",
+              tolakCard: "#1a2938",
+              tolakGold: "#ecab23",
+              tolakGoldHover: "#d99918",
+              tolakGray: "#6c757d",
+              tolakLightBlue: "#f0f5fc",
+              tolakBorder: "#273b4d",
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Custom Styles -->
+    <style>
+      :root {
+        --gold: #ecab23;
+        --white: #ffffff;
+        --dark: #16222d;
+        --text-gray: #6c757d;
+        --bg-light-blue: #f0f5fc;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: var(--dark);
+        color: var(--text-gray);
+        overflow-x: hidden;
+      }
+
+      /* Newsletter banner gradient matching custom palette */
+      .newsletter-banner {
+        background: linear-gradient(
+          135deg,
+          #1b2a3a 0%,
+          #16222d 50%,
+          #111a24 100%
+        );
+        border: 1px solid rgba(236, 171, 35, 0.2);
+      }
+
+      .footer-bg {
+        background: linear-gradient(180deg, #16222d 0%, #0d141c 100%);
+        position: relative;
+      }
+
+      .footer-bg::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(
+          circle at 85% 70%,
+          rgba(236, 171, 35, 0.04) 0%,
+          transparent 60%
+        );
+        pointer-events: none;
+      }
+
+      /* Enhanced Link hover effect with slide & color transition */
+      .footer-link {
+        transition: all 0.3s ease-in-out;
+      }
+      .footer-link:hover {
+        color: #ecab23;
+        transform: translateX(6px);
+      }
+    </style>
+  </head>
+  <body class="min-h-screen flex flex-col justify-between">
+    <div class="py-12 px-4 text-center">
+      <span
+        class="inline-block px-4 py-1.5 rounded-full bg-[#ecab23]/15 text-[#ecab23] font-semibold text-sm mb-3"
+        >Interactive Component Preview</span
+      >
+      <h1 class="text-white text-2xl md:text-3xl font-bold">
+        Scroll down to view the Enhanced Tolak Footer
+      </h1>
+      <p class="text-[#6c757d] text-sm mt-2">
+        Scroll the page to watch the Floating Back-to-Top button dynamically
+        update its percentage!
+      </p>
+      <!-- Content spacer to enable long scrolling -->
+      <div
+        class="my-24 text-gray-500 border border-dashed border-[#273b4d] p-8 rounded-2xl max-w-xl mx-auto"
+      >
+        <i
+          class="fa-solid fa-arrow-down text-2xl animate-bounce mb-2 block text-[#ecab23]"
+        ></i>
+        Scroll down towards the footer section at the bottom
+      </div>
+    </div>
+
+    <footer class="footer-bg text-[#6c757d] pt-10 pb-6 relative z-10">
+      <div class="container mx-auto px-4 max-w-7xl">
+        <!-- Newsletter Subscription Banner (Fully Mobile Responsive Stack Layout) -->
+        <div
+          class="newsletter-banner rounded-3xl p-5 sm:p-6 md:p-8 mb-16 shadow-2xl relative overflow-hidden"
+          data-aos="fade-up"
+          data-aos-duration="800"
+        >
+          <div
+            class="flex flex-col lg:flex-row items-center justify-between gap-6 relative z-10"
+          >
+            <!-- Left: Icon & Heading -->
+            <div
+              class="flex flex-col sm:flex-row items-center text-center sm:text-left gap-4 sm:gap-5 w-full lg:w-auto"
+            >
+              <div
+                class="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br from-[#ecab23] to-[#c78b10] flex items-center justify-center text-[#16222d] text-xl sm:text-2xl md:text-3xl shadow-lg shrink-0 font-bold"
+              >
+                <i class="fa-solid fa-comments"></i>
+              </div>
+              <div>
+                <h3
+                  class="text-white text-lg sm:text-xl md:text-2xl font-bold tracking-tight"
+                >
+                  Subscribe To Our Newsletter
+                </h3>
+                <p class="text-xs sm:text-sm text-[#6c757d] mt-1">
+                  Get the latest auto repair tips and updates directly in your
+                  inbox.
+                </p>
+              </div>
+            </div>
+
+            <!-- Right: Input & Subscribe Button (Optimized stacked for mobile, inline for sm+) -->
+            <div class="w-full lg:w-auto flex-1 max-w-xl">
+              <form
+                id="newsletterForm"
+                class="flex flex-col sm:flex-row items-center bg-[#f0f5fc] rounded-2xl sm:rounded-full p-2 shadow-inner gap-2"
+                action="./404.html"
+              >
+                <div
+                  class="relative w-full flex items-center px-3 sm:px-4 py-2"
+                >
+                  <i class="fa-regular fa-envelope text-[#6c757d] mr-3"></i>
+                  <input
+                    type="email"
+                    id="emailInput"
+                    required
+                    placeholder="Email address"
+                    class="w-full bg-transparent text-[#16222d] placeholder-[#6c757d] focus:outline-none text-sm"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  class="w-full sm:w-auto bg-[#ecab23] hover:bg-[#d99918] text-[#16222d] font-bold px-8 py-3 rounded-xl sm:rounded-full transition-all duration-300 shadow-md shrink-0"
+                >
+                  Subscribe
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-[#273b4d]"
+        >
+          <!-- Column 1: Image Logo, Description & Socials -->
+          <div
+            class="lg:col-span-4 space-y-5"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <div class="flex items-center gap-3">
+              <div
+                class="w-10 h-10 flex items-center justify-center text-[#16222d] text-lg font-bold shadow-md shrink-0"
+              >
+                <!-- <i class="fa-solid fa-shield-halved"></i> -->
+              </div>
+              <!-- TOLAK Logo as Image tag with styling -->
+              <img
+                src="./assets/logooo.webp"
+                alt="Tolak Logo"
+                class="h-8 md:h-10 object-contain rounded-md"
+                onerror="
+                  this.src =
+                    'https://placehold.co/140x45/16222d/ecab23?text=Tolak'
+                "
+                style="cursor: pointer"
+                onclick="window.location.href = './index.html'"
+              />
+            </div>
+            <p class="text-sm text-[#6c757d] leading-relaxed pr-4">
+              Automotive's four Frederick locations continues its years
+              tradition of quality auto repair services. vehicle owners in gym
+              enter and take a look.
+            </p>
+            <div class="flex items-center gap-3 pt-2">
+              <a
+                href="./404.html"
+                class="w-10 h-10 rounded-full bg-[#1a2938] hover:bg-[#ecab23] hover:text-[#16222d] text-white flex items-center justify-center transition-colors duration-300 border border-[#273b4d]"
+                aria-label="Facebook"
+              >
+                <i class="fa-brands fa-facebook-f text-sm"></i>
+              </a>
+              <a
+                href="./404.html"
+                class="w-10 h-10 rounded-full bg-[#1a2938] hover:bg-[#ecab23] hover:text-[#16222d] text-white flex items-center justify-center transition-colors duration-300 border border-[#273b4d]"
+                aria-label="Twitter"
+              >
+                <i class="fa-brands fa-twitter text-sm"></i>
+              </a>
+              <a
+                href="./404.html"
+                class="w-10 h-10 rounded-full bg-[#1a2938] hover:bg-[#ecab23] hover:text-[#16222d] text-white flex items-center justify-center transition-colors duration-300 border border-[#273b4d]"
+                aria-label="Pinterest"
+              >
+                <i class="fa-brands fa-pinterest-p text-sm"></i>
+              </a>
+              <a
+                href="./404.html"
+                class="w-10 h-10 rounded-full bg-[#1a2938] hover:bg-[#ecab23] hover:text-[#16222d] text-white flex items-center justify-center transition-colors duration-300 border border-[#273b4d]"
+                aria-label="Instagram"
+              >
+                <i class="fa-brands fa-instagram text-sm"></i>
+              </a>
+            </div>
+          </div>
+          <!-- Column 3: Quick Link with increased font size & hover effect -->
+          <div
+            class="lg:col-span-2 space-y-4"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
+            <h4 class="text-white text-base font-bold tracking-wider uppercase">
+              Quick Link
+            </h4>
+            <ul class="space-y-3 text-base">
+              <li>
+                <a
+                  href="./index.html"
+                  class="footer-link inline-block text-gray-300 hover:text-[#ecab23] font-medium"
+                  >Home</a
+                >
+              </li>
+              <li>
+                <a
+                  href="./services.html"
+                  class="footer-link inline-block text-gray-300 hover:text-[#ecab23] font-medium"
+                  >Services</a
+                >
+              </li>
+              <li>
+                <a
+                  href="./about.html"
+                  class="footer-link inline-block text-gray-300 hover:text-[#ecab23] font-medium"
+                  >About Us</a
+                >
+              </li>
+              <li>
+                <a
+                  href="./contact.html"
+                  class="footer-link inline-block text-gray-300 hover:text-[#ecab23] font-medium"
+                  >Contact Us</a
+                >
+              </li>
+              <li>
+                <a
+                  href="./blog.html"
+                  class="footer-link inline-block text-gray-300 hover:text-[#ecab23] font-medium"
+                  >Blogs</a
+                >
+              </li>
+            </ul>
+          </div>
+          <!-- Column 2: Service Links with increased font size & hover effect -->
+          <div
+            class="lg:col-span-2 space-y-4"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <h4 class="text-white text-base font-bold tracking-wider uppercase">
+              Service
+            </h4>
+            <ul class="space-y-3 text-base">
+              <li>
+                <a
+                  href="./404.html"
+                  class="footer-link inline-block text-gray-300 hover:text-[#ecab23] font-medium"
+                  >Why choose us</a
+                >
+              </li>
+              <li>
+                <a
+                  href="./404.html"
+                  class="footer-link inline-block text-gray-300 hover:text-[#ecab23] font-medium"
+                  >Tax Service</a
+                >
+              </li>
+              <li>
+                <a
+                  href="./404.html"
+                  class="footer-link inline-block text-gray-300 hover:text-[#ecab23] font-medium"
+                  >Partners</a
+                >
+              </li>
+              <li>
+                <a
+                  href="./404.html"
+                  class="footer-link inline-block text-gray-300 hover:text-[#ecab23] font-medium"
+                  >Core values</a
+                >
+              </li>
+              <li>
+                <a
+                  href="./404.html"
+                  class="footer-link inline-block text-gray-300 hover:text-[#ecab23] font-medium"
+                  >Our projects</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Column 4: Recent Posts -->
+          <div
+            class="lg:col-span-4 space-y-4"
+            data-aos="fade-up"
+            data-aos-delay="400"
+          >
+            <h4 class="text-white text-base font-bold tracking-wider uppercase">
+              Recent Posts
+            </h4>
+            <div class="space-y-4">
+              <!-- Post 1 -->
+              <div
+                class="flex items-center gap-4 group cursor-pointer"
+                onclick="window.location.href = './404.html'"
+              >
+                <img
+                  src="./assets/f1.webp"
+                  alt="Recent Post"
+                  class="w-14 h-14 rounded-full object-cover shrink-0 border border-[#273b4d]"
+                />
+                <div>
+                  <span class="text-xs text-[#ecab23] font-medium block"
+                    >04 Feb, 24</span
+                  >
+                  <h5
+                    class="text-white text-sm font-semibold group-hover:text-[#ecab23] transition-colors duration-200 line-clamp-1"
+                  >
+                    Few common reasons why
+                  </h5>
+                </div>
+              </div>
+              <!-- Post 2 -->
+              <div
+                class="flex items-center gap-4 group cursor-pointer"
+                onclick="window.location.href = './404.html'"
+              >
+                <img
+                  src="./assets/f2.webp"
+                  alt="Recent Post"
+                  class="w-14 h-14 rounded-full object-cover shrink-0 border border-[#273b4d]"
+                />
+                <div>
+                  <span class="text-xs text-[#ecab23] font-medium block"
+                    >04 Feb, 24</span
+                  >
+                  <h5
+                    class="text-white text-sm font-semibold group-hover:text-[#ecab23] transition-colors duration-200 line-clamp-1"
+                  >
+                    Marketing Business Peratan This
+                  </h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[#6c757d] relative"
+        >
+          <div>&copy; Copyright 2026 Stackly All Rights Reserved.</div>
+
+          <!-- <div class="flex items-center gap-6 text-sm">
+            <a href="#" class="hover:text-white transition-colors">About Us</a>
+            <a href="#" class="hover:text-white transition-colors">Service</a>
+            <a href="#" class="hover:text-white transition-colors">News</a>
+            <a href="#" class="hover:text-white transition-colors">Portfolio</a>
+          </div> -->
+        </div>
+      </div>
+    </footer>
+
+    <!-- Floating Fixed Back-to-Top Button with Dynamic Percentage -->
+    <button
+      onclick="scrollToTop()"
+      class="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-[#1a2938]/90 backdrop-blur-md border border-[#273b4d] hover:border-[#ecab23] text-gray-300 hover:text-white px-3 py-2 rounded-full shadow-2xl transition-all duration-300 group cursor-pointer"
+    >
+      <span
+        id="scrollPercentText"
+        class="text-[10px] font-bold tracking-widest uppercase hidden sm:inline"
+        >BACK TO TOP</span
+      >
+      <div
+        class="w-9 h-9 rounded-full bg-[#16222d] group-hover:bg-[#ecab23] group-hover:text-[#16222d] text-white flex items-center justify-center text-xs font-bold transition-colors shadow-inner"
+        id="scrollCircleIndicator"
+      >
+        100%
+      </div>
+    </button>
+
+    <!-- JS Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script>
+      // Initialize AOS animations
+      AOS.init({
+        once: true,
+        offset: 50,
+        duration: 800,
+      });
+
+      // Dynamic Scroll Percentage Indicator & Floating Button Logic
+      window.addEventListener("scroll", () => {
+        const scrollTop = window.scrollY;
+        const docHeight =
+          document.documentElement.scrollHeight -
+          document.documentElement.clientHeight;
+        // Calculate exact percentage (0% at top, 100% at bottom)
+        const scrollPercent =
+          docHeight > 0
+            ? Math.min(
+                100,
+                Math.max(0, Math.round((scrollTop / docHeight) * 100)),
+              )
+            : 100;
+
+        const indicator = document.getElementById("scrollCircleIndicator");
+        if (indicator) {
+          indicator.innerText = scrollPercent + "%";
+        }
+      });
+
+      // Trigger initial calculation on load
+      window.dispatchEvent(new Event("scroll"));
+
+      // Newsletter subscription handler with toast alert
+      function handleSubscribe(e) {
+        e.preventDefault();
+        const email = document.getElementById("emailInput").value;
+        if (email) {
+          showToast("Thank you for subscribing to Tolak Newsletter!");
+          document.getElementById("newsletterForm").reset();
+        }
+      }
+
+      // Custom Toast Notification (replacing alert)
+      function showToast(message) {
+        const existingToast = document.getElementById("customToast");
+        if (existingToast) existingToast.remove();
+
+        const toast = document.createElement("div");
+        toast.id = "customToast";
+        toast.className =
+          "fixed bottom-24 right-6 z-50 bg-[#ecab23] text-[#16222d] font-semibold px-6 py-3 rounded-2xl shadow-2xl flex items-center gap-3 transform translate-y-10 opacity-0 transition-all duration-300";
+        toast.innerHTML = `<i class="fa-solid fa-circle-check text-lg"></i><span class="text-sm">${message}</span>`;
+
+        document.body.appendChild(toast);
+
+        setTimeout(() => {
+          toast.classList.remove("translate-y-10", "opacity-0");
+        }, 50);
+
+        setTimeout(() => {
+          toast.classList.add("translate-y-10", "opacity-0");
+          setTimeout(() => toast.remove(), 300);
+        }, 3500);
+      }
+
+      // Smooth scroll to top function
+      function scrollToTop() {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      }
+    </script>
+  </body>
+</html>
