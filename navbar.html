@@ -14,17 +14,11 @@
       rel="stylesheet"
     />
 
-    <!-- AOS CSS CDN -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-
     <!-- Google Fonts: Inter -->
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-
-    <!-- GSAP CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
     <style>
       /* ===== NEW COLOR PALETTE ===== */
@@ -80,8 +74,8 @@
       /* ---- Mobile menu transition ---- */
       #nav-mobile-menu {
         transition:
-          opacity 0.3s ease,
-          visibility 0.3s ease;
+          opacity 0.4s ease,
+          visibility 0.4s ease;
       }
 
       /* ---- 3D Front-Flip Hover Effect for Nav Links (with icons) ---- */
@@ -218,15 +212,78 @@
       .nav-link-inner .back-face .nav-icon {
         stroke: currentColor;
       }
+
+      /* ============================================================
+                   VANILLA CSS ANIMATIONS (replacing AOS + GSAP)
+                   ============================================================ */
+
+      /* ----- Fade Down (top bar + header) ----- */
+      .anim-fade-down {
+        opacity: 0;
+        transform: translateY(-32px);
+        transition:
+          opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+          transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+      .anim-fade-down.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ----- Zoom In (hero card) ----- */
+      .anim-zoom-in {
+        opacity: 0;
+        transform: scale(0.92);
+        transition:
+          opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+          transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+      .anim-zoom-in.visible {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      /* ----- Mobile menu items stagger (set via JS) ----- */
+      .mobile-stagger-item {
+        opacity: 0;
+        transform: translateY(20px);
+        transition:
+          opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+          transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .mobile-stagger-item.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      /* Each item gets a staggered delay via JS inline style */
+
+      /* ----- Mobile menu footer items (stagger) ----- */
+      .mobile-footer-item {
+        opacity: 0;
+        transform: translateY(16px);
+        transition:
+          opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+          transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .mobile-footer-item.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ----- Fix for mobile menu scroll ----- */
+      #nav-mobile-menu {
+        overflow-y: auto;
+      }
+      #nav-mobile-menu .flex-1 {
+        overflow-y: auto;
+      }
     </style>
   </head>
 
   <body>
     <!-- ===== TOP ANNOUNCEMENT BAR ===== -->
     <div
-      class="bg-stackly-gold text-white text-xs sm:text-sm py-2 px-4 shadow-sm nav-top-bar"
-      data-aos="fade-down"
-      data-aos-duration="600"
+      class="bg-stackly-gold text-white text-xs sm:text-sm py-2 px-4 shadow-sm nav-top-bar anim-fade-down"
     >
       <div
         class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2 nav-top-container"
@@ -310,10 +367,7 @@
 
     <!-- ===== MAIN NAVIGATION BAR ===== -->
     <header
-      class="bg-white shadow-sm sticky top-0 z-40 nav-header"
-      data-aos="fade-down"
-      data-aos-duration="800"
-      data-aos-delay="100"
+      class="bg-white shadow-sm sticky top-0 z-40 nav-header anim-fade-down"
     >
       <div
         class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between nav-header-container"
@@ -484,7 +538,7 @@
               </span>
             </span>
           </a>
-          <!-- DASHBOARD -->
+          <!-- CONTACT -->
           <a href="./contact.html" class="nav-link-3d nav-menu-link">
             <span class="nav-link-inner">
               <span class="front-face">
@@ -631,7 +685,7 @@
         >
           <a
             href="./index.html"
-            class="text-xl font-bold text-[#16222d] hover:text-[#ecab23] transition nav-mobile-link flex items-center gap-3"
+            class="text-xl font-bold text-[#16222d] hover:text-[#ecab23] transition nav-mobile-link flex items-center gap-3 mobile-stagger-item"
           >
             <svg
               class="w-6 h-6"
@@ -650,7 +704,7 @@
           </a>
           <a
             href="./about.html"
-            class="text-xl font-bold text-[#16222d] hover:text-[#ecab23] transition nav-mobile-link flex items-center gap-3"
+            class="text-xl font-bold text-[#16222d] hover:text-[#ecab23] transition nav-mobile-link flex items-center gap-3 mobile-stagger-item"
           >
             <svg
               class="w-6 h-6"
@@ -669,7 +723,7 @@
           </a>
           <a
             href="./services.html"
-            class="text-xl font-bold text-[#16222d] hover:text-[#ecab23] transition nav-mobile-link flex items-center gap-3"
+            class="text-xl font-bold text-[#16222d] hover:text-[#ecab23] transition nav-mobile-link flex items-center gap-3 mobile-stagger-item"
           >
             <svg
               class="w-6 h-6"
@@ -688,7 +742,7 @@
           </a>
           <a
             href="./blog.html"
-            class="text-xl font-bold text-[#16222d] hover:text-[#ecab23] transition nav-mobile-link flex items-center gap-3"
+            class="text-xl font-bold text-[#16222d] hover:text-[#ecab23] transition nav-mobile-link flex items-center gap-3 mobile-stagger-item"
           >
             <svg
               class="w-6 h-6"
@@ -707,7 +761,7 @@
           </a>
           <a
             href="./contact.html"
-            class="text-xl font-bold text-[#16222d] hover:text-[#ecab23] transition nav-mobile-link flex items-center gap-3"
+            class="text-xl font-bold text-[#16222d] hover:text-[#ecab23] transition nav-mobile-link flex items-center gap-3 mobile-stagger-item"
           >
             <svg
               class="w-6 h-6"
@@ -732,7 +786,7 @@
         >
           <!-- Social icons row (added inside hamburger) -->
           <div
-            class="flex items-center justify-center gap-4 mobile-social-icons"
+            class="flex items-center justify-center gap-4 mobile-social-icons mobile-footer-item"
           >
             <a
               href="./404.html"
@@ -774,7 +828,7 @@
 
           <!-- Phone -->
           <div
-            class="flex items-center gap-3 text-[#16222d] font-semibold text-lg nav-mobile-phone-wrap justify-center"
+            class="flex items-center gap-3 text-[#16222d] font-semibold text-lg nav-mobile-phone-wrap justify-center mobile-footer-item"
           >
             <svg
               class="w-5 h-5 text-[#ecab23] nav-mobile-phone-svg"
@@ -793,13 +847,9 @@
           </div>
 
           <!-- Action Buttons -->
-          <div class="grid grid-cols-2 gap-3 nav-mobile-buttons-grid">
-            <!-- <a
-              href="#signin"
-              class="border border-[#6c757d]/30 text-[#16222d] font-semibold py-3 rounded-lg text-center hover:bg-[#f0f5fc] transition nav-mobile-signin"
-            >
-              Sign In
-            </a> -->
+          <div
+            class="grid grid-cols-2 gap-3 nav-mobile-buttons-grid mobile-footer-item"
+          >
             <a
               href="./login.html"
               class="bg-[#ecab23] text-white font-semibold py-3 rounded-lg text-center shadow-md hover:bg-[#16222d] transition nav-mobile-contact"
@@ -814,9 +864,7 @@
     <!-- ===== SAMPLE HERO CONTENT ===== -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 nav-main-content">
       <div
-        class="bg-white rounded-2xl shadow-sm border border-[#f0f5fc] p-8 sm:p-12 text-center nav-hero-card"
-        data-aos="zoom-in"
-        data-aos-duration="1000"
+        class="bg-white rounded-2xl shadow-sm border border-[#f0f5fc] p-8 sm:p-12 text-center nav-hero-card anim-zoom-in"
       >
         <span
           class="inline-block bg-[#f0f5fc] text-[#ecab23] font-semibold text-xs uppercase px-3 py-1 rounded-full mb-4 nav-badge"
@@ -853,46 +901,163 @@
     </main>
 
     <!-- ===== SCRIPTS ===== -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-      // AOS
-      AOS.init({ once: true, offset: 50 });
+      (function () {
+        "use strict";
 
-      // Mobile menu
-      const navHamburgerBtn = document.getElementById("nav-hamburger-btn");
-      const navCloseBtn = document.getElementById("nav-close-btn");
-      const navMobileMenu = document.getElementById("nav-mobile-menu");
-
-      function openMobileMenu() {
-        navMobileMenu.classList.remove("invisible", "opacity-0");
-        navMobileMenu.classList.add("visible", "opacity-100");
-        document.body.style.overflow = "hidden";
-        gsap.fromTo(
-          "#nav-mobile-menu > div > div > *",
-          { y: 20, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.4,
-            stagger: 0.08,
-            ease: "power2.out",
-            delay: 0.1,
-          },
+        // ================================================================
+        // 1. INTERSECTION OBSERVER – triggers fade/zoom when elements enter view
+        // ================================================================
+        const animElements = document.querySelectorAll(
+          ".anim-fade-down, .anim-zoom-in",
         );
-      }
 
-      function closeMobileMenu() {
-        navMobileMenu.classList.remove("visible", "opacity-100");
-        navMobileMenu.classList.add("invisible", "opacity-0");
-        document.body.style.overflow = "auto";
-      }
+        if ("IntersectionObserver" in window) {
+          const observer = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add("visible");
+                  // Optionally unobserve after reveal to save resources
+                  observer.unobserve(entry.target);
+                }
+              });
+            },
+            {
+              threshold: 0.15,
+              rootMargin: "0px 0px -20px 0px",
+            },
+          );
 
-      navHamburgerBtn.addEventListener("click", openMobileMenu);
-      navCloseBtn.addEventListener("click", closeMobileMenu);
+          animElements.forEach(function (el) {
+            observer.observe(el);
+          });
+        } else {
+          // Fallback: show all immediately if IntersectionObserver not supported
+          animElements.forEach(function (el) {
+            el.classList.add("visible");
+          });
+        }
 
-      document.querySelectorAll("#nav-mobile-menu a").forEach((link) => {
-        link.addEventListener("click", closeMobileMenu);
-      });
+        // ================================================================
+        // 2. MOBILE MENU TOGGLE (no GSAP – pure CSS + JS stagger)
+        // ================================================================
+        const hamburgerBtn = document.getElementById("nav-hamburger-btn");
+        const closeBtn = document.getElementById("nav-close-btn");
+        const mobileMenu = document.getElementById("nav-mobile-menu");
+        const mobileLinks = document.querySelectorAll(".mobile-stagger-item");
+        const mobileFooterItems = document.querySelectorAll(
+          ".mobile-footer-item",
+        );
+
+        // Keep track of stagger timeouts so we can cancel them on close
+        let staggerTimeouts = [];
+
+        function clearStaggerTimeouts() {
+          staggerTimeouts.forEach(function (t) {
+            clearTimeout(t);
+          });
+          staggerTimeouts = [];
+        }
+
+        function openMobileMenu() {
+          // Show the menu overlay
+          mobileMenu.classList.remove("invisible", "opacity-0");
+          mobileMenu.classList.add("visible", "opacity-100");
+          document.body.style.overflow = "hidden";
+
+          // Reset all stagger items to hidden first
+          mobileLinks.forEach(function (el) {
+            el.classList.remove("visible");
+          });
+          mobileFooterItems.forEach(function (el) {
+            el.classList.remove("visible");
+          });
+
+          // Stagger in the nav links
+          mobileLinks.forEach(function (el, index) {
+            var delay = 80 + index * 60; // 80ms base + 60ms per item
+            var timeout = setTimeout(function () {
+              el.classList.add("visible");
+            }, delay);
+            staggerTimeouts.push(timeout);
+          });
+
+          // Stagger in the footer items after a small extra delay
+          mobileFooterItems.forEach(function (el, index) {
+            var delay = 300 + index * 80; // starts after nav links
+            var timeout = setTimeout(function () {
+              el.classList.add("visible");
+            }, delay);
+            staggerTimeouts.push(timeout);
+          });
+        }
+
+        function closeMobileMenu() {
+          // Hide the menu overlay
+          mobileMenu.classList.remove("visible", "opacity-100");
+          mobileMenu.classList.add("invisible", "opacity-0");
+          document.body.style.overflow = "auto";
+
+          // Cancel any pending stagger timeouts
+          clearStaggerTimeouts();
+
+          // Reset all stagger items (remove visible class) so they are fresh next open
+          mobileLinks.forEach(function (el) {
+            el.classList.remove("visible");
+          });
+          mobileFooterItems.forEach(function (el) {
+            el.classList.remove("visible");
+          });
+        }
+
+        // Event listeners
+        if (hamburgerBtn) {
+          hamburgerBtn.addEventListener("click", openMobileMenu);
+        }
+        if (closeBtn) {
+          closeBtn.addEventListener("click", closeMobileMenu);
+        }
+
+        // Close on any link click inside the mobile menu
+        var allMobileLinks = document.querySelectorAll("#nav-mobile-menu a");
+        allMobileLinks.forEach(function (link) {
+          link.addEventListener("click", closeMobileMenu);
+        });
+
+        // Close on Escape key
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && mobileMenu.classList.contains("visible")) {
+            closeMobileMenu();
+          }
+        });
+
+        // ================================================================
+        // 3. (Optional) Ensure initial visible class for elements already in view
+        //    – If an anim element is already visible on load, IntersectionObserver
+        //      will catch it, but we also do a quick manual check as a safety net.
+        // ================================================================
+        function checkVisibleOnLoad() {
+          var allAnim = document.querySelectorAll(
+            ".anim-fade-down, .anim-zoom-in",
+          );
+          allAnim.forEach(function (el) {
+            var rect = el.getBoundingClientRect();
+            var winHeight =
+              window.innerHeight || document.documentElement.clientHeight;
+            var threshold = 0.15;
+            var visibleHeight = rect.height * threshold;
+            if (
+              rect.top < winHeight - visibleHeight &&
+              rect.bottom > visibleHeight
+            ) {
+              el.classList.add("visible");
+            }
+          });
+        }
+        // Run after a tiny delay to let layout settle
+        setTimeout(checkVisibleOnLoad, 100);
+      })();
     </script>
   </body>
 </html>

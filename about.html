@@ -706,16 +706,263 @@
           font-size: 2rem;
         }
       }
+
+      /* ============================================================ */
+      /* ===== NAVBAR & FOOTER STYLES (copied from combined file) ===== */
+      /* ============================================================ */
+
+      /* ---- Brand Colors (gold based) ---- */
+      .bg-stackly-gold {
+        background-color: var(--gold);
+      }
+      .text-stackly-gold {
+        color: var(--gold);
+      }
+      .hover-stackly-gold:hover {
+        color: var(--gold);
+      }
+      .border-stackly-gold {
+        border-color: var(--gold);
+      }
+      .bg-stackly-dark {
+        background-color: var(--dark);
+      }
+      .text-stackly-dark {
+        color: var(--dark);
+      }
+      .hover-stackly-dark:hover {
+        color: var(--dark);
+      }
+      .bg-stackly-light-blue {
+        background-color: var(--bg-light-gray);
+      }
+      .text-stackly-gray {
+        color: var(--text-gray);
+      }
+
+      #nav-mobile-menu {
+        transition:
+          opacity 0.4s ease,
+          visibility 0.4s ease;
+      }
+
+      .nav-link-3d {
+        perspective: 1000px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .nav-link-inner {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transform-style: preserve-3d;
+        transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+      }
+      .nav-link-inner span {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        backface-visibility: hidden;
+      }
+      .nav-link-inner .back-face {
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: rotateX(90deg);
+        transform-origin: bottom;
+        color: var(--gold);
+      }
+      .nav-link-3d:hover .nav-link-inner {
+        transform: rotateX(-90deg) translateY(-2px);
+      }
+
+      .nav-contact-btn {
+        position: relative;
+        background-color: var(--gold);
+        overflow: hidden;
+        transition: color 0.4s ease;
+      }
+      .nav-contact-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background-color: var(--dark);
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1;
+      }
+      .nav-contact-btn:hover::before {
+        transform: translateX(100%);
+      }
+      .nav-contact-btn .relative {
+        position: relative;
+        z-index: 2;
+      }
+
+      .social-icon-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background-color: rgba(22, 34, 45, 0.1);
+        transition: all 0.25s ease;
+        color: var(--dark);
+        text-decoration: none;
+      }
+      .social-icon-link:hover {
+        background-color: var(--dark);
+        color: var(--gold);
+        transform: translateY(-3px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+      }
+      .social-icon-link svg {
+        width: 18px;
+        height: 18px;
+        fill: currentColor;
+        stroke: none;
+        flex-shrink: 0;
+      }
+      .social-icon-link.gold-hover:hover {
+        background-color: var(--gold);
+        color: var(--white);
+        box-shadow: 0 4px 14px rgba(236, 171, 35, 0.35);
+      }
+
+      .mobile-social-icons a {
+        width: 40px;
+        height: 40px;
+        background-color: rgba(22, 34, 45, 0.08);
+        color: var(--dark);
+      }
+      .mobile-social-icons a:hover {
+        background-color: var(--gold);
+        color: var(--white);
+        box-shadow: 0 4px 14px rgba(236, 171, 35, 0.3);
+      }
+
+      .nav-icon {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        stroke: currentColor;
+        stroke-width: 2;
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .nav-link-inner .back-face .nav-icon {
+        stroke: currentColor;
+      }
+
+      .anim-fade-down {
+        opacity: 0;
+        transform: translateY(-32px);
+        transition:
+          opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+          transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+      .anim-fade-down.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .anim-zoom-in {
+        opacity: 0;
+        transform: scale(0.92);
+        transition:
+          opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+          transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+      .anim-zoom-in.visible {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      .mobile-stagger-item {
+        opacity: 0;
+        transform: translateY(20px);
+        transition:
+          opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+          transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .mobile-stagger-item.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .mobile-footer-item {
+        opacity: 0;
+        transform: translateY(16px);
+        transition:
+          opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+          transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .mobile-footer-item.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      #nav-mobile-menu {
+        overflow-y: auto;
+      }
+      #nav-mobile-menu .flex-1 {
+        overflow-y: auto;
+      }
+
+      /* ----- Footer Styles ----- */
+      .newsletter-banner {
+        background: linear-gradient(
+          135deg,
+          #1b2a3a 0%,
+          #16222d 50%,
+          #111a24 100%
+        );
+        border: 1px solid rgba(236, 171, 35, 0.2);
+      }
+
+      .footer-bg {
+        background: linear-gradient(180deg, #16222d 0%, #0d141c 100%);
+        position: relative;
+      }
+
+      .footer-bg::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(
+          circle at 85% 70%,
+          rgba(236, 171, 35, 0.04) 0%,
+          transparent 60%
+        );
+        pointer-events: none;
+      }
+
+      .footer-link {
+        transition: all 0.3s ease-in-out;
+      }
+      .footer-link:hover {
+        color: #ecab23;
+        transform: translateX(6px);
+      }
     </style>
-    <link rel="stylesheet" href="./nav.css" />
-    <link rel="stylesheet" href="./footer.css" />
   </head>
   <body>
+    <!-- ============================================================ -->
+    <!-- ===== NAVBAR (from combined file) ===== -->
+    <!-- ============================================================ -->
+
     <!-- ===== TOP ANNOUNCEMENT BAR ===== -->
     <div
-      class="bg-stackly-gold text-white text-xs sm:text-sm py-2 px-4 shadow-sm nav-top-bar"
-      data-aos="fade-down"
-      data-aos-duration="600"
+      class="bg-stackly-gold text-white text-xs sm:text-sm py-2 px-4 shadow-sm nav-top-bar anim-fade-down"
     >
       <div
         class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2 nav-top-container"
@@ -799,10 +1046,7 @@
 
     <!-- ===== MAIN NAVIGATION BAR ===== -->
     <header
-      class="bg-white shadow-sm sticky top-0 z-40 nav-header"
-      data-aos="fade-down"
-      data-aos-duration="800"
-      data-aos-delay="100"
+      class="bg-white shadow-sm sticky top-0 z-40 nav-header anim-fade-down"
     >
       <div
         class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between nav-header-container"
@@ -973,7 +1217,7 @@
               </span>
             </span>
           </a>
-          <!-- DASHBOARD -->
+          <!-- CONTACT -->
           <a href="./contact.html" class="nav-link-3d nav-menu-link">
             <span class="nav-link-inner">
               <span class="front-face">
@@ -1120,7 +1364,7 @@
         >
           <a
             href="./index.html"
-            class="text-xl font-bold text-[#16222d] hover:text-[#ecab23] transition nav-mobile-link flex items-center gap-3"
+            class="text-xl font-bold text-[#16222d] hover:text-[#ecab23] transition nav-mobile-link flex items-center gap-3 mobile-stagger-item"
           >
             <svg
               class="w-6 h-6"
@@ -1139,7 +1383,7 @@
           </a>
           <a
             href="./about.html"
-            class="text-xl font-bold text-[#16222d] hover:text-[#ecab23] transition nav-mobile-link flex items-center gap-3"
+            class="text-xl font-bold text-[#16222d] hover:text-[#ecab23] transition nav-mobile-link flex items-center gap-3 mobile-stagger-item"
           >
             <svg
               class="w-6 h-6"
@@ -1158,7 +1402,7 @@
           </a>
           <a
             href="./services.html"
-            class="text-xl font-bold text-[#16222d] hover:text-[#ecab23] transition nav-mobile-link flex items-center gap-3"
+            class="text-xl font-bold text-[#16222d] hover:text-[#ecab23] transition nav-mobile-link flex items-center gap-3 mobile-stagger-item"
           >
             <svg
               class="w-6 h-6"
@@ -1177,7 +1421,7 @@
           </a>
           <a
             href="./blog.html"
-            class="text-xl font-bold text-[#16222d] hover:text-[#ecab23] transition nav-mobile-link flex items-center gap-3"
+            class="text-xl font-bold text-[#16222d] hover:text-[#ecab23] transition nav-mobile-link flex items-center gap-3 mobile-stagger-item"
           >
             <svg
               class="w-6 h-6"
@@ -1196,7 +1440,7 @@
           </a>
           <a
             href="./contact.html"
-            class="text-xl font-bold text-[#16222d] hover:text-[#ecab23] transition nav-mobile-link flex items-center gap-3"
+            class="text-xl font-bold text-[#16222d] hover:text-[#ecab23] transition nav-mobile-link flex items-center gap-3 mobile-stagger-item"
           >
             <svg
               class="w-6 h-6"
@@ -1221,7 +1465,7 @@
         >
           <!-- Social icons row (added inside hamburger) -->
           <div
-            class="flex items-center justify-center gap-4 mobile-social-icons"
+            class="flex items-center justify-center gap-4 mobile-social-icons mobile-footer-item"
           >
             <a
               href="./404.html"
@@ -1263,7 +1507,7 @@
 
           <!-- Phone -->
           <div
-            class="flex items-center gap-3 text-[#16222d] font-semibold text-lg nav-mobile-phone-wrap justify-center"
+            class="flex items-center gap-3 text-[#16222d] font-semibold text-lg nav-mobile-phone-wrap justify-center mobile-footer-item"
           >
             <svg
               class="w-5 h-5 text-[#ecab23] nav-mobile-phone-svg"
@@ -1282,13 +1526,9 @@
           </div>
 
           <!-- Action Buttons -->
-          <div class="grid grid-cols-2 gap-3 nav-mobile-buttons-grid">
-            <!-- <a
-              href="#signin"
-              class="border border-[#6c757d]/30 text-[#16222d] font-semibold py-3 rounded-lg text-center hover:bg-[#f0f5fc] transition nav-mobile-signin"
-            >
-              Sign In
-            </a> -->
+          <div
+            class="grid grid-cols-2 gap-3 nav-mobile-buttons-grid mobile-footer-item"
+          >
             <a
               href="./login.html"
               class="bg-[#ecab23] text-white font-semibold py-3 rounded-lg text-center shadow-md hover:bg-[#16222d] transition nav-mobile-contact"
@@ -1299,6 +1539,11 @@
         </div>
       </div>
     </div>
+
+    <!-- ============================================================ -->
+    <!-- ===== ABOUT PAGE CONTENT (original) ===== -->
+    <!-- ============================================================ -->
+
     <!-- SECTION 1: HERO BANNER -->
     <section class="hero-about" data-aos="fade-down" data-aos-duration="1000">
       <div class="hero-circle" id="floatingCircle"></div>
@@ -1777,9 +2022,14 @@
         </div>
       </div>
     </section>
+
+    <!-- ============================================================ -->
+    <!-- ===== FOOTER (from combined file) ===== -->
+    <!-- ============================================================ -->
+
     <footer class="footer-bg text-[#6c757d] pt-10 pb-6 relative z-10">
       <div class="container mx-auto px-4 max-w-7xl">
-        <!-- Newsletter Subscription Banner (Fully Mobile Responsive Stack Layout) -->
+        <!-- Newsletter Subscription Banner -->
         <div
           class="newsletter-banner rounded-3xl p-5 sm:p-6 md:p-8 mb-16 shadow-2xl relative overflow-hidden"
           data-aos="fade-up"
@@ -1810,7 +2060,7 @@
               </div>
             </div>
 
-            <!-- Right: Input & Subscribe Button (Optimized stacked for mobile, inline for sm+) -->
+            <!-- Right: Input & Subscribe Button -->
             <div class="w-full lg:w-auto flex-1 max-w-xl">
               <form
                 id="newsletterForm"
@@ -1852,10 +2102,7 @@
             <div class="flex items-center gap-3">
               <div
                 class="w-10 h-10 flex items-center justify-center text-[#16222d] text-lg font-bold shadow-md shrink-0"
-              >
-                <!-- <i class="fa-solid fa-shield-halved"></i> -->
-              </div>
-              <!-- TOLAK Logo as Image tag with styling -->
+              ></div>
               <img
                 src="./assets/logooo.webp"
                 alt="Tolak Logo"
@@ -1904,7 +2151,7 @@
               </a>
             </div>
           </div>
-          <!-- Column 3: Quick Link with increased font size & hover effect -->
+          <!-- Column 3: Quick Link -->
           <div
             class="lg:col-span-2 space-y-4"
             data-aos="fade-up"
@@ -1951,7 +2198,7 @@
               </li>
             </ul>
           </div>
-          <!-- Column 2: Service Links with increased font size & hover effect -->
+          <!-- Column 2: Service Links -->
           <div
             class="lg:col-span-2 space-y-4"
             data-aos="fade-up"
@@ -2059,18 +2306,11 @@
           class="pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[#6c757d] relative"
         >
           <div>&copy; Copyright 2026 Stackly All Rights Reserved.</div>
-
-          <!-- <div class="flex items-center gap-6 text-sm">
-            <a href="#" class="hover:text-white transition-colors">About Us</a>
-            <a href="#" class="hover:text-white transition-colors">Service</a>
-            <a href="#" class="hover:text-white transition-colors">News</a>
-            <a href="#" class="hover:text-white transition-colors">Portfolio</a>
-          </div> -->
         </div>
       </div>
     </footer>
 
-    <!-- Floating Fixed Back-to-Top Button with Dynamic Percentage -->
+    <!-- Floating Fixed Back-to-Top Button -->
     <button
       onclick="scrollToTop()"
       class="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-[#1a2938]/90 backdrop-blur-md border border-[#273b4d] hover:border-[#ecab23] text-gray-300 hover:text-white px-3 py-2 rounded-full shadow-2xl transition-all duration-300 group cursor-pointer"
@@ -2087,20 +2327,21 @@
         100%
       </div>
     </button>
-    <script src="./nav.js"></script>
-    <script src="./footer.js"></script>
 
-    <!-- JS Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <!-- Scripts -->
+    <!-- ============================================================ -->
+    <!-- ===== SCRIPTS ===== -->
+    <!-- ============================================================ -->
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <script>
+      // ============================================================
+      // ABOUT PAGE SCRIPTS (original)
+      // ============================================================
+
       // Initialize AOS
       AOS.init({ duration: 800, once: true, offset: 100 });
 
@@ -2184,9 +2425,6 @@
             link.innerHTML = `<i class="fab ${iconClass}"></i>`;
             link.onclick = function (e) {
               e.stopPropagation();
-              // alert(
-              //   `You clicked the ${iconClass.replace("fa-", "")} social icon!`,
-              // );
               window.location.replace("./404.html");
             };
             container.appendChild(link);
@@ -2225,9 +2463,207 @@
           icon.innerHTML = "+";
         }
       }
+
+      // ============================================================
+      // NAVBAR SCRIPTS (from combined file)
+      // ============================================================
+
+      // Intersection Observer for .anim-fade-down (top bar and header)
+      const animElements = document.querySelectorAll(
+        ".anim-fade-down, .anim-zoom-in",
+      );
+      if ("IntersectionObserver" in window) {
+        const obs = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                obs.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.15, rootMargin: "0px 0px -20px 0px" },
+        );
+        animElements.forEach(function (el) {
+          obs.observe(el);
+        });
+      } else {
+        animElements.forEach(function (el) {
+          el.classList.add("visible");
+        });
+      }
+
+      // Mobile menu toggle
+      const hamburgerBtn = document.getElementById("nav-hamburger-btn");
+      const closeBtn = document.getElementById("nav-close-btn");
+      const mobileMenu = document.getElementById("nav-mobile-menu");
+      const mobileLinks = document.querySelectorAll(".mobile-stagger-item");
+      const mobileFooterItems = document.querySelectorAll(
+        ".mobile-footer-item",
+      );
+      let staggerTimeouts = [];
+
+      function clearStaggerTimeouts() {
+        staggerTimeouts.forEach(function (t) {
+          clearTimeout(t);
+        });
+        staggerTimeouts = [];
+      }
+
+      function openMobileMenu() {
+        mobileMenu.classList.remove("invisible", "opacity-0");
+        mobileMenu.classList.add("visible", "opacity-100");
+        document.body.style.overflow = "hidden";
+
+        mobileLinks.forEach(function (el) {
+          el.classList.remove("visible");
+        });
+        mobileFooterItems.forEach(function (el) {
+          el.classList.remove("visible");
+        });
+
+        mobileLinks.forEach(function (el, index) {
+          var delay = 80 + index * 60;
+          var timeout = setTimeout(function () {
+            el.classList.add("visible");
+          }, delay);
+          staggerTimeouts.push(timeout);
+        });
+
+        mobileFooterItems.forEach(function (el, index) {
+          var delay = 300 + index * 80;
+          var timeout = setTimeout(function () {
+            el.classList.add("visible");
+          }, delay);
+          staggerTimeouts.push(timeout);
+        });
+      }
+
+      function closeMobileMenu() {
+        mobileMenu.classList.remove("visible", "opacity-100");
+        mobileMenu.classList.add("invisible", "opacity-0");
+        document.body.style.overflow = "auto";
+        clearStaggerTimeouts();
+        mobileLinks.forEach(function (el) {
+          el.classList.remove("visible");
+        });
+        mobileFooterItems.forEach(function (el) {
+          el.classList.remove("visible");
+        });
+      }
+
+      if (hamburgerBtn) {
+        hamburgerBtn.addEventListener("click", openMobileMenu);
+      }
+      if (closeBtn) {
+        closeBtn.addEventListener("click", closeMobileMenu);
+      }
+
+      var allMobileLinks = document.querySelectorAll("#nav-mobile-menu a");
+      allMobileLinks.forEach(function (link) {
+        link.addEventListener("click", closeMobileMenu);
+      });
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && mobileMenu.classList.contains("visible")) {
+          closeMobileMenu();
+        }
+      });
+
+      // Ensure initial visible class for elements already in view
+      function checkVisibleOnLoad() {
+        var allAnim = document.querySelectorAll(
+          ".anim-fade-down, .anim-zoom-in",
+        );
+        allAnim.forEach(function (el) {
+          var rect = el.getBoundingClientRect();
+          var winHeight =
+            window.innerHeight || document.documentElement.clientHeight;
+          var threshold = 0.15;
+          var visibleHeight = rect.height * threshold;
+          if (
+            rect.top < winHeight - visibleHeight &&
+            rect.bottom > visibleHeight
+          ) {
+            el.classList.add("visible");
+          }
+        });
+      }
+      setTimeout(checkVisibleOnLoad, 100);
+
+      // ============================================================
+      // FOOTER SCRIPTS (from combined file)
+      // ============================================================
+
+      // Dynamic Scroll Percentage Indicator
+      window.addEventListener("scroll", function () {
+        const scrollTop = window.scrollY;
+        const docHeight =
+          document.documentElement.scrollHeight -
+          document.documentElement.clientHeight;
+        const scrollPercent =
+          docHeight > 0
+            ? Math.min(
+                100,
+                Math.max(0, Math.round((scrollTop / docHeight) * 100)),
+              )
+            : 100;
+        const indicator = document.getElementById("scrollCircleIndicator");
+        if (indicator) {
+          indicator.innerText = scrollPercent + "%";
+        }
+      });
+      window.dispatchEvent(new Event("scroll"));
+
+      // Newsletter subscription handler
+      function handleSubscribe(e) {
+        e.preventDefault();
+        const email = document.getElementById("emailInput").value;
+        if (email) {
+          showToast("Thank you for subscribing to Stackly Newsletter!");
+          document.getElementById("newsletterForm").reset();
+        }
+      }
+
+      function showToast(message) {
+        const existingToast = document.getElementById("customToast");
+        if (existingToast) existingToast.remove();
+
+        const toast = document.createElement("div");
+        toast.id = "customToast";
+        toast.className =
+          "fixed bottom-24 right-6 z-50 bg-[#ecab23] text-[#16222d] font-semibold px-6 py-3 rounded-2xl shadow-2xl flex items-center gap-3 transform translate-y-10 opacity-0 transition-all duration-300";
+        toast.innerHTML = `<i class="fa-solid fa-circle-check text-lg"></i><span class="text-sm">${message}</span>`;
+        document.body.appendChild(toast);
+
+        setTimeout(function () {
+          toast.classList.remove("translate-y-10", "opacity-0");
+        }, 50);
+
+        setTimeout(function () {
+          toast.classList.add("translate-y-10", "opacity-0");
+          setTimeout(function () {
+            toast.remove();
+          }, 300);
+        }, 3500);
+      }
+
+      // Smooth scroll to top
+      function scrollToTop() {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      }
+
+      // Attach newsletter form submit
+      const newsletterForm = document.getElementById("newsletterForm");
+      if (newsletterForm) {
+        newsletterForm.addEventListener("submit", handleSubscribe);
+      }
+
+      // Make scrollToTop globally accessible for the onclick attribute
+      window.scrollToTop = scrollToTop;
     </script>
-    <!-- ===== SCRIPTS ===== -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="./nav.js"></script>
   </body>
 </html>

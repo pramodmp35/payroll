@@ -51,8 +51,8 @@ body {
 /* ---- Mobile menu transition ---- */
 #nav-mobile-menu {
   transition:
-    opacity 0.3s ease,
-    visibility 0.3s ease;
+    opacity 0.4s ease,
+    visibility 0.4s ease;
 }
 
 /* ---- 3D Front-Flip Hover Effect for Nav Links (with icons) ---- */
@@ -188,4 +188,69 @@ body {
 }
 .nav-link-inner .back-face .nav-icon {
   stroke: currentColor;
+}
+
+/* ============================================================
+                   VANILLA CSS ANIMATIONS (replacing AOS + GSAP)
+                   ============================================================ */
+
+/* ----- Fade Down (top bar + header) ----- */
+.anim-fade-down {
+  opacity: 0;
+  transform: translateY(-32px);
+  transition:
+    opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.anim-fade-down.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ----- Zoom In (hero card) ----- */
+.anim-zoom-in {
+  opacity: 0;
+  transform: scale(0.92);
+  transition:
+    opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.anim-zoom-in.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ----- Mobile menu items stagger (set via JS) ----- */
+.mobile-stagger-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.mobile-stagger-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Each item gets a staggered delay via JS inline style */
+
+/* ----- Mobile menu footer items (stagger) ----- */
+.mobile-footer-item {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.mobile-footer-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ----- Fix for mobile menu scroll ----- */
+#nav-mobile-menu {
+  overflow-y: auto;
+}
+#nav-mobile-menu .flex-1 {
+  overflow-y: auto;
 }
