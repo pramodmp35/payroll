@@ -247,6 +247,33 @@
         }
       }
 
+      /* profile edit styles */
+      .profile-edit-input {
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        padding: 6px 12px;
+        width: 100%;
+        font-size: 0.95rem;
+        background: #f9fafb;
+        transition: border 0.2s;
+      }
+      .profile-edit-input:focus {
+        border-color: var(--gold);
+        outline: none;
+        background: #fff;
+      }
+      .profile-label {
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 2px;
+        display: block;
+      }
+      .profile-value {
+        color: #475569;
+        padding: 6px 0;
+        border-bottom: 1px dashed #e2e8f0;
+      }
+
       @media (max-width: 991px) {
         .sidebar {
           transform: translateX(-100%);
@@ -369,7 +396,7 @@
           ></span>
         </div>
 
-        <!-- STATS ROW (different from admin) -->
+        <!-- STATS ROW -->
         <div class="row g-3 mb-4" data-aos="fade-up">
           <div class="col-6 col-lg-3">
             <div class="stat-card">
@@ -413,7 +440,7 @@
           </div>
         </div>
 
-        <!-- CHARTS (different) -->
+        <!-- CHARTS -->
         <div class="row g-3 mb-4" data-aos="fade-up" data-aos-delay="100">
           <div class="col-lg-7">
             <div class="chart-box">
@@ -560,37 +587,91 @@
         </div>
       </div>
 
-      <!-- ========== PROFILE ========== -->
+      <!-- ========== PROFILE (with edit/save functionality) ========== -->
       <div id="section-profile" class="page-section">
         <h3 class="fw-bold text-dark">
           <i class="fas fa-user text-gold me-2"></i>Profile
         </h3>
-        <p class="text-muted">Your personal information.</p>
-        <div class="chart-box">
-          <div class="row g-3">
-            <div class="col-md-6">
-              <label class="fw-bold">Full Name</label>
-              <p class="text-muted" id="profileName">John Doe</p>
+        <p class="text-muted">
+          Your personal information. Click edit to update.
+        </p>
+        <div class="chart-box" id="profileCard">
+          <form id="profileForm">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="profile-label">Full Name</label>
+                <div class="profile-value" id="profileNameDisplay">
+                  John Doe
+                </div>
+                <input
+                  type="text"
+                  class="profile-edit-input d-none"
+                  id="profileNameInput"
+                  value="John Doe"
+                />
+              </div>
+              <div class="col-md-6">
+                <label class="profile-label">Email</label>
+                <div class="profile-value" id="profileEmailDisplay">
+                  user@stackly.com
+                </div>
+                <input
+                  type="email"
+                  class="profile-edit-input d-none"
+                  id="profileEmailInput"
+                  value="user@stackly.com"
+                />
+              </div>
+              <div class="col-md-6">
+                <label class="profile-label">Department</label>
+                <div class="profile-value" id="profileDepartmentDisplay">
+                  Engineering
+                </div>
+                <input
+                  type="text"
+                  class="profile-edit-input d-none"
+                  id="profileDepartmentInput"
+                  value="Engineering"
+                />
+              </div>
+              <div class="col-md-6">
+                <label class="profile-label">Role</label>
+                <div class="profile-value" id="profileRoleDisplay">
+                  Senior Developer
+                </div>
+                <input
+                  type="text"
+                  class="profile-edit-input d-none"
+                  id="profileRoleInput"
+                  value="Senior Developer"
+                />
+              </div>
             </div>
-            <div class="col-md-6">
-              <label class="fw-bold">Email</label>
-              <p class="text-muted" id="profileEmail">user@stackly.com</p>
+            <div class="mt-3 d-flex gap-2">
+              <button
+                type="button"
+                class="btn btn-dark btn-sm"
+                id="editProfileBtn"
+              >
+                <i class="fas fa-edit me-1"></i> Edit Profile
+              </button>
+              <button
+                type="button"
+                class="btn btn-gold btn-sm d-none"
+                id="saveProfileBtn"
+                style="background: var(--gold); color: var(--dark)"
+              >
+                <i class="fas fa-save me-1"></i> Save Changes
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary btn-sm d-none"
+                id="cancelProfileBtn"
+              >
+                <i class="fas fa-times me-1"></i> Cancel
+              </button>
             </div>
-            <div class="col-md-6">
-              <label class="fw-bold">Department</label>
-              <p class="text-muted">Engineering</p>
-            </div>
-            <div class="col-md-6">
-              <label class="fw-bold">Role</label>
-              <p class="text-muted">Senior Developer</p>
-            </div>
-          </div>
-          <button
-            class="btn btn-dark btn-sm mt-2"
-            onclick="window.location.href = './404.html'"
-          >
-            <i class="fas fa-edit me-1"></i> Edit Profile
-          </button>
+          </form>
         </div>
       </div>
 
@@ -636,27 +717,71 @@
     <script>
       AOS.init({ duration: 700, once: true });
 
-      // ---- DISPLAY LOGGED-IN EMAIL ----
+      // ---- DISPLAY LOGGED-IN USER ----
       const userData = JSON.parse(localStorage.getItem("stacklyUser") || "{}");
-      const emailEl = document.getElementById("userEmail");
-      const nameEl = document.getElementById("userName");
-      const profileEmail = document.getElementById("profileEmail");
-      const profileName = document.getElementById("profileName");
+      // Fallback default profile data
+      const defaultProfile = {
+        name: userData.name || "John Doe",
+        email: userData.email || "user@stackly.com",
+        department: "Engineering",
+        role: "Senior Developer",
+      };
 
-      if (userData.email) {
-        emailEl.textContent = userData.email;
-        profileEmail.textContent = userData.email;
+      // If userData doesn't have name, we set it from email prefix
+      if (!userData.name && userData.email) {
         const prefix = userData.email.split("@")[0];
-        const displayName = prefix.charAt(0).toUpperCase() + prefix.slice(1);
-        nameEl.textContent = displayName;
-        profileName.textContent = displayName;
-      } else {
-        emailEl.textContent = "user@stackly.com";
-        profileEmail.textContent = "user@stackly.com";
-        nameEl.textContent = "User";
-        profileName.textContent = "John Doe";
+        defaultProfile.name = prefix.charAt(0).toUpperCase() + prefix.slice(1);
       }
 
+      // Store profile data in a global object (also sync to localStorage)
+      let profile = {
+        name: defaultProfile.name,
+        email: defaultProfile.email,
+        department: defaultProfile.department,
+        role: defaultProfile.role,
+      };
+
+      // Function to update UI from profile object
+      function updateProfileUI() {
+        // Sidebar
+        document.getElementById("userName").textContent = profile.name;
+        document.getElementById("userEmail").textContent = profile.email;
+        // Profile page displays
+        document.getElementById("profileNameDisplay").textContent =
+          profile.name;
+        document.getElementById("profileEmailDisplay").textContent =
+          profile.email;
+        document.getElementById("profileDepartmentDisplay").textContent =
+          profile.department;
+        document.getElementById("profileRoleDisplay").textContent =
+          profile.role;
+        // Input fields (hidden initially)
+        document.getElementById("profileNameInput").value = profile.name;
+        document.getElementById("profileEmailInput").value = profile.email;
+        document.getElementById("profileDepartmentInput").value =
+          profile.department;
+        document.getElementById("profileRoleInput").value = profile.role;
+        // Update localStorage user data
+        const storedUser = JSON.parse(
+          localStorage.getItem("stacklyUser") || "{}",
+        );
+        storedUser.name = profile.name;
+        storedUser.email = profile.email;
+        localStorage.setItem("stacklyUser", JSON.stringify(storedUser));
+      }
+
+      // Initial load from localStorage if available
+      const storedProfile = JSON.parse(
+        localStorage.getItem("stacklyUser") || "{}",
+      );
+      if (storedProfile.name) {
+        profile.name = storedProfile.name;
+        profile.email = storedProfile.email || profile.email;
+        // department and role not in login, but we keep defaults
+      }
+      updateProfileUI();
+
+      // ---- DATE ----
       document.getElementById("currentDate").textContent =
         new Date().toLocaleDateString("en-US", {
           weekday: "short",
@@ -708,11 +833,86 @@
         .addEventListener("click", function () {
           if (confirm("Are you sure you want to logout?")) {
             localStorage.removeItem("stacklyUser");
-            window.location.href = "./index.html";
+            window.location.href = "./login.html";
           }
         });
 
-      // ---- CHARTS (different from admin) ----
+      // ---- PROFILE EDIT/SAVE/CANCEL ----
+      const editBtn = document.getElementById("editProfileBtn");
+      const saveBtn = document.getElementById("saveProfileBtn");
+      const cancelBtn = document.getElementById("cancelProfileBtn");
+
+      // Get all display elements and input elements
+      const displayFields = [
+        document.getElementById("profileNameDisplay"),
+        document.getElementById("profileEmailDisplay"),
+        document.getElementById("profileDepartmentDisplay"),
+        document.getElementById("profileRoleDisplay"),
+      ];
+      const inputFields = [
+        document.getElementById("profileNameInput"),
+        document.getElementById("profileEmailInput"),
+        document.getElementById("profileDepartmentInput"),
+        document.getElementById("profileRoleInput"),
+      ];
+
+      function enableEditMode() {
+        displayFields.forEach((el) => el.classList.add("d-none"));
+        inputFields.forEach((el) => el.classList.remove("d-none"));
+        editBtn.classList.add("d-none");
+        saveBtn.classList.remove("d-none");
+        cancelBtn.classList.remove("d-none");
+      }
+
+      function disableEditMode() {
+        displayFields.forEach((el) => el.classList.remove("d-none"));
+        inputFields.forEach((el) => el.classList.add("d-none"));
+        editBtn.classList.remove("d-none");
+        saveBtn.classList.add("d-none");
+        cancelBtn.classList.add("d-none");
+        // Reset input values to current profile (in case of cancel)
+        inputFields[0].value = profile.name;
+        inputFields[1].value = profile.email;
+        inputFields[2].value = profile.department;
+        inputFields[3].value = profile.role;
+      }
+
+      // Edit button
+      editBtn.addEventListener("click", enableEditMode);
+
+      // Cancel button
+      cancelBtn.addEventListener("click", disableEditMode);
+
+      // Save button
+      saveBtn.addEventListener("click", function () {
+        // Gather new values
+        const newName = inputFields[0].value.trim();
+        const newEmail = inputFields[1].value.trim();
+        const newDept = inputFields[2].value.trim();
+        const newRole = inputFields[3].value.trim();
+
+        if (!newName || !newEmail) {
+          alert("Name and Email are required.");
+          return;
+        }
+
+        // Update profile object
+        profile.name = newName;
+        profile.email = newEmail;
+        profile.department = newDept || "Engineering";
+        profile.role = newRole || "Senior Developer";
+
+        // Update UI
+        updateProfileUI();
+
+        // Exit edit mode
+        disableEditMode();
+
+        // Optional: show a toast/alert
+        alert("Profile updated successfully!");
+      });
+
+      // ---- CHARTS ----
       // Productivity (line)
       const ctx1 = document
         .getElementById("productivityChart")

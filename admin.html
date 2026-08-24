@@ -335,7 +335,11 @@
       </div>
 
       <!-- Logout Button -->
-      <button class="logout-btn" id="logoutBtn">
+      <button
+        class="logout-btn"
+        id="logoutBtn"
+        onclick="window.location.href = './index.html'"
+      >
         <i class="fas fa-sign-out-alt"></i> Logout
       </button>
 
@@ -580,39 +584,131 @@
         </div>
       </div>
 
-      <!-- ==================== SETTINGS ==================== -->
+      <!-- ==================== SETTINGS (with mandatory form) ==================== -->
       <div id="section-settings" class="page-section">
         <h3 class="fw-bold text-dark">
           <i class="fas fa-cog text-gold me-2"></i>Settings
         </h3>
-        <p class="text-muted">Configure your account and preferences.</p>
+        <p class="text-muted">Update your profile and preferences.</p>
         <div class="chart-box">
-          <div class="mb-3">
-            <label class="fw-bold">Profile</label>
-            <p class="text-muted small">
-              Email: <span id="settingsEmail">admin@stackly.com</span>
-            </p>
-          </div>
-          <div class="mb-3">
-            <label class="fw-bold">Notifications</label>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" checked />
-              <label>Email alerts</label>
+          <form id="settingsForm" action="./404.html" method="GET">
+            <!-- Name -->
+            <div class="mb-3">
+              <label for="fullName" class="form-label fw-bold">Full Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="fullName"
+                placeholder="Enter your full name"
+                required
+              />
             </div>
-          </div>
-          <div class="mb-3">
-            <label class="fw-bold">Theme</label
-            ><select class="form-select w-auto">
-              <option>Light</option>
-              <option>Dark</option>
-            </select>
-          </div>
-          <button
-            class="btn btn-dark btn-sm"
-            onclick="window.location.href = './404.html'"
-          >
-            <i class="fas fa-save me-1"></i> Save
-          </button>
+            <!-- Email -->
+            <div class="mb-3">
+              <label for="settingsEmailInput" class="form-label fw-bold"
+                >Email</label
+              >
+              <input
+                type="email"
+                class="form-control"
+                id="settingsEmailInput"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+            <!-- Department -->
+            <div class="mb-3">
+              <label for="department" class="form-label fw-bold"
+                >Department</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="department"
+                placeholder="e.g. Engineering, Sales"
+                required
+              />
+            </div>
+            <!-- Role -->
+            <div class="mb-3">
+              <label for="role" class="form-label fw-bold">Role</label>
+              <input
+                type="text"
+                class="form-control"
+                id="role"
+                placeholder="e.g. Manager, Developer"
+                required
+              />
+            </div>
+            <!-- Current Password -->
+            <div class="mb-3">
+              <label for="currentPassword" class="form-label fw-bold"
+                >Current Password</label
+              >
+              <input
+                type="password"
+                class="form-control"
+                id="currentPassword"
+                placeholder="Enter current password"
+                required
+              />
+            </div>
+            <!-- New Password -->
+            <div class="mb-3">
+              <label for="newPassword" class="form-label fw-bold"
+                >New Password</label
+              >
+              <input
+                type="password"
+                class="form-control"
+                id="newPassword"
+                placeholder="Enter new password"
+                required
+              />
+            </div>
+            <!-- Confirm Password -->
+            <div class="mb-3">
+              <label for="confirmPassword" class="form-label fw-bold"
+                >Confirm Password</label
+              >
+              <input
+                type="password"
+                class="form-control"
+                id="confirmPassword"
+                placeholder="Re-enter new password"
+                required
+              />
+              <div id="passwordMatchFeedback" class="invalid-feedback">
+                Passwords do not match.
+              </div>
+            </div>
+
+            <!-- Notifications (optional) -->
+            <div class="mb-3 form-check">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                id="notificationsToggle"
+                checked
+              />
+              <label class="form-check-label" for="notificationsToggle"
+                >Receive email notifications</label
+              >
+            </div>
+
+            <!-- Theme (optional) -->
+            <div class="mb-3">
+              <label for="themeSelect" class="form-label fw-bold">Theme</label>
+              <select class="form-select w-auto" id="themeSelect">
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn btn-dark btn-sm">
+              <i class="fas fa-save me-1"></i> Save Changes
+            </button>
+          </form>
         </div>
       </div>
 
@@ -631,16 +727,23 @@
       const userData = JSON.parse(localStorage.getItem("stacklyUser") || "{}");
       const emailEl = document.getElementById("adminEmail");
       const nameEl = document.getElementById("adminName");
-      const settingsEmail = document.getElementById("settingsEmail");
+      const settingsEmailInput = document.getElementById("settingsEmailInput");
+
       if (userData.email) {
         emailEl.textContent = userData.email;
-        settingsEmail.textContent = userData.email;
+        settingsEmailInput.value = userData.email;
         const prefix = userData.email.split("@")[0];
-        nameEl.textContent = prefix.charAt(0).toUpperCase() + prefix.slice(1);
+        const displayName = prefix.charAt(0).toUpperCase() + prefix.slice(1);
+        nameEl.textContent = displayName;
+        // Also set name field if exists
+        const fullNameInput = document.getElementById("fullName");
+        if (fullNameInput) fullNameInput.value = displayName;
       } else {
         emailEl.textContent = "admin@stackly.com";
-        settingsEmail.textContent = "admin@stackly.com";
+        settingsEmailInput.value = "admin@stackly.com";
         nameEl.textContent = "Admin";
+        const fullNameInput = document.getElementById("fullName");
+        if (fullNameInput) fullNameInput.value = "Admin";
       }
 
       document.getElementById("currentDate").textContent =
@@ -671,40 +774,86 @@
         }
       });
 
-      // ---- SIDEBAR NAVIGATION: show sections ----
+      // ---- SIDEBAR NAVIGATION ----
       document.querySelectorAll(".sidebar .nav-link").forEach((link) => {
         link.addEventListener("click", function (e) {
-          // active class
           document
             .querySelectorAll(".sidebar .nav-link")
             .forEach((l) => l.classList.remove("active"));
           this.classList.add("active");
-
-          // hide all sections, show target
           const sectionId = this.dataset.section;
           document
             .querySelectorAll(".page-section")
             .forEach((s) => s.classList.remove("active-section"));
           const target = document.getElementById("section-" + sectionId);
           if (target) target.classList.add("active-section");
-
-          // close sidebar on mobile
           if (window.innerWidth <= 991) closeSidebar();
         });
       });
 
-      // ---- LOGOUT FUNCTION ----
+      // ---- LOGOUT ----
       document
         .getElementById("logoutBtn")
         .addEventListener("click", function () {
           if (confirm("Are you sure you want to logout?")) {
             localStorage.removeItem("stacklyUser");
-            window.location.href = "./index.html";
+            window.location.href = "./login.html";
           }
         });
 
-      // ---- CHARTS ----
-      // Revenue
+      // ---- SETTINGS FORM VALIDATION & REDIRECT ----
+      document
+        .getElementById("settingsForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          // Get all required fields
+          const fullName = document.getElementById("fullName");
+          const email = document.getElementById("settingsEmailInput");
+          const department = document.getElementById("department");
+          const role = document.getElementById("role");
+          const currentPassword = document.getElementById("currentPassword");
+          const newPassword = document.getElementById("newPassword");
+          const confirmPassword = document.getElementById("confirmPassword");
+          const feedback = document.getElementById("passwordMatchFeedback");
+
+          // Check if all required fields have value (built-in required handles empty)
+          // But we also need to check password match
+          let isValid = true;
+
+          // Password match check
+          if (newPassword.value !== confirmPassword.value) {
+            confirmPassword.classList.add("is-invalid");
+            feedback.style.display = "block";
+            isValid = false;
+          } else {
+            confirmPassword.classList.remove("is-invalid");
+            feedback.style.display = "none";
+          }
+
+          // If invalid, stop
+          if (!isValid) return;
+
+          // If all good, redirect to ./404.html
+          window.location.href = "./404.html";
+        });
+
+      // Remove invalid state on typing
+      document
+        .getElementById("confirmPassword")
+        .addEventListener("input", function () {
+          const newPw = document.getElementById("newPassword");
+          const feedback = document.getElementById("passwordMatchFeedback");
+          if (this.value !== newPw.value) {
+            this.classList.add("is-invalid");
+            feedback.style.display = "block";
+          } else {
+            this.classList.remove("is-invalid");
+            feedback.style.display = "none";
+          }
+        });
+
+      // ---- CHARTS (unchanged) ----
       const ctx1 = document.getElementById("revenueChart").getContext("2d");
       new Chart(ctx1, {
         type: "line",
@@ -747,7 +896,6 @@
         },
       });
 
-      // Department
       const ctx2 = document.getElementById("deptChart").getContext("2d");
       new Chart(ctx2, {
         type: "doughnut",
@@ -780,7 +928,6 @@
         },
       });
 
-      // Growth
       const ctx3 = document.getElementById("growthChart").getContext("2d");
       new Chart(ctx3, {
         type: "bar",
@@ -806,7 +953,6 @@
         },
       });
 
-      // Payroll history (bar)
       const ctx4 = document.getElementById("payrollHistory").getContext("2d");
       new Chart(ctx4, {
         type: "bar",
@@ -832,7 +978,6 @@
         },
       });
 
-      // Tax chart (doughnut)
       const ctx5 = document.getElementById("taxChart").getContext("2d");
       new Chart(ctx5, {
         type: "doughnut",
@@ -854,7 +999,6 @@
         },
       });
 
-      // Cost chart (bar)
       const ctx6 = document.getElementById("costChart").getContext("2d");
       new Chart(ctx6, {
         type: "bar",

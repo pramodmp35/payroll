@@ -1833,7 +1833,13 @@
             <div class="team-card" id="card-1">
               <div class="team-img-wrapper">
                 <img src="./assets/t1.webp" alt="Lorata Barsa" />
-                <div class="team-overlay" id="socials-1"></div>
+                <!-- Social overlay – hardcoded links -->
+                <div class="team-overlay" id="socials-1">
+                  <a href="./404.html"><i class="fab fa-facebook-f"></i></a>
+                  <a href="./404.html"><i class="fab fa-pinterest-p"></i></a>
+                  <a href="./404.html"><i class="fab fa-twitter"></i></a>
+                  <a href="./404.html"><i class="fab fa-instagram"></i></a>
+                </div>
               </div>
               <div class="team-bottom-wrapper">
                 <div class="icon-circle" onclick="toggleTeamState('card-1')">
@@ -1856,7 +1862,12 @@
             <div class="team-card" id="card-2">
               <div class="team-img-wrapper">
                 <img src="./assets/team4.webp" alt="Moras Batas" />
-                <div class="team-overlay" id="socials-2"></div>
+                <div class="team-overlay" id="socials-2">
+                  <a href="./404.html"><i class="fab fa-facebook-f"></i></a>
+                  <a href="./404.html"><i class="fab fa-pinterest-p"></i></a>
+                  <a href="./404.html"><i class="fab fa-twitter"></i></a>
+                  <a href="./404.html"><i class="fab fa-instagram"></i></a>
+                </div>
               </div>
               <div class="team-bottom-wrapper">
                 <div class="icon-circle" onclick="toggleTeamState('card-2')">
@@ -1879,7 +1890,12 @@
             <div class="team-card" id="card-3">
               <div class="team-img-wrapper">
                 <img src="./assets/team2.webp" alt="Korata Mana" />
-                <div class="team-overlay" id="socials-3"></div>
+                <div class="team-overlay" id="socials-3">
+                  <a href="./404.html"><i class="fab fa-facebook-f"></i></a>
+                  <a href="./404.html"><i class="fab fa-pinterest-p"></i></a>
+                  <a href="./404.html"><i class="fab fa-twitter"></i></a>
+                  <a href="./404.html"><i class="fab fa-instagram"></i></a>
+                </div>
               </div>
               <div class="team-bottom-wrapper">
                 <div class="icon-circle" onclick="toggleTeamState('card-3')">
@@ -1910,7 +1926,6 @@
             >
               <img src="./assets/ab5.webp" alt="Team" class="faq-circle-img" />
               <div>
-                <!-- Added counter span for 36 -->
                 <div class="faq-experience-number">
                   <span class="counter" data-target="36">0</span>+
                 </div>
@@ -2367,7 +2382,7 @@
           () => (marquee.style.animationPlayState = "running"),
         );
 
-        // 3. Automated Counters (Including the new FAQ 36+ counter!)
+        // 3. Automated Counters (including FAQ 36+)
         gsap.registerPlugin(ScrollTrigger);
         const counters = document.querySelectorAll(".counter");
         counters.forEach((counter) => {
@@ -2387,49 +2402,7 @@
           });
         });
 
-        // 4. Generate Social Icons inside Team Overlays
-        const socialData = [
-          {
-            id: "socials-1",
-            icons: [
-              "fa-facebook-f",
-              "fa-pinterest-p",
-              "fa-twitter",
-              "fa-instagram",
-            ],
-          },
-          {
-            id: "socials-2",
-            icons: [
-              "fa-facebook-f",
-              "fa-pinterest-p",
-              "fa-twitter",
-              "fa-instagram",
-            ],
-          },
-          {
-            id: "socials-3",
-            icons: [
-              "fa-facebook-f",
-              "fa-pinterest-p",
-              "fa-twitter",
-              "fa-instagram",
-            ],
-          },
-        ];
-
-        socialData.forEach((group) => {
-          const container = document.getElementById(group.id);
-          group.icons.forEach((iconClass) => {
-            const link = document.createElement("a");
-            link.innerHTML = `<i class="fab ${iconClass}"></i>`;
-            link.onclick = function (e) {
-              e.stopPropagation();
-              window.location.replace("./404.html");
-            };
-            container.appendChild(link);
-          });
-        });
+        // No JS social generation – now hardcoded in HTML
       });
 
       // 5. Accordion Logic
