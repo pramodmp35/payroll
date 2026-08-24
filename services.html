@@ -38,11 +38,19 @@
         --process-bg: #f4f2ee;
       }
 
+      /* --- FIX: Prevent horizontal scroll on mobile --- */
+      html,
+      body {
+        overflow-x: hidden;
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
       body {
         font-family: "Inter", sans-serif;
         background-color: var(--white);
         color: var(--dark);
-        overflow-x: hidden;
       }
 
       .text-gold {

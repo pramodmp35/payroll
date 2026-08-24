@@ -36,13 +36,22 @@
         --border-color: #e5e7eb;
       }
 
+      /* --- FIX: Prevent horizontal scroll on mobile --- */
+      html,
+      body {
+        overflow-x: hidden;
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
       body {
         font-family: "Inter", sans-serif;
         background-color: var(--white);
         color: var(--dark);
-        overflow-x: hidden;
       }
 
+      /* ... rest of your styles ... */
       .text-gold {
         color: var(--gold);
       }
@@ -203,6 +212,7 @@
         height: auto;
         object-fit: cover;
         transition: transform 0.5s ease;
+        display: block;
       }
       .blog-post-wrapper:hover .blog-img-wrapper img {
         transform: scale(1.03);
@@ -272,6 +282,7 @@
         padding: 10px 0;
         font-size: 0.95rem;
         background: transparent;
+        min-width: 0;
       }
       .search-form button {
         background: var(--gold);
@@ -285,6 +296,7 @@
         justify-content: center;
         transition: background 0.3s;
         cursor: pointer;
+        flex-shrink: 0;
       }
       .search-form button:hover {
         background: var(--dark);
@@ -415,9 +427,11 @@
         height: 60px;
         border-radius: 6px;
         object-fit: cover;
+        flex-shrink: 0;
       }
       .recent-post-item .info {
         flex-grow: 1;
+        min-width: 0;
       }
       .recent-post-item .date-badge {
         background: var(--gold);
@@ -437,6 +451,7 @@
         color: var(--dark);
         cursor: pointer;
         transition: color 0.3s;
+        word-break: break-word;
       }
       .recent-post-item h6:hover {
         color: var(--gold);
@@ -531,6 +546,7 @@
         justify-content: center;
         gap: 8px;
         margin-top: 30px;
+        flex-wrap: wrap;
       }
       .pagination-custom a {
         display: flex;
@@ -663,7 +679,7 @@
       }
 
       /* ============================================================ */
-      /* ===== NAVBAR & FOOTER STYLES (copied from combined file) ===== */
+      /* ===== NAVBAR & FOOTER STYLES ===== */
       /* ============================================================ */
 
       /* ---- Brand Colors (gold based) ---- */
