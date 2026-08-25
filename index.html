@@ -64,7 +64,204 @@
         overflow-x: hidden;
         color: var(--white);
       }
+      /* ================================================================
+             LOADER OVERLAY — from Uiverse (dexter-st)
+             ================================================================ */
 
+      #loader-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--dark);
+        transition:
+          opacity 0.7s ease,
+          visibility 0.7s ease;
+        opacity: 1;
+        visibility: visible;
+      }
+      #loader-overlay.hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .loader-wrapper-grid {
+        --animation-duration: 2.1s;
+        --cube-color: #0000;
+        --highlight-color: #ecab23;
+        --cube-width: 48px;
+        --cube-height: 48px;
+        --font-size: 1.8em;
+
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(7, var(--cube-width));
+        grid-template-rows: auto;
+        grid-gap: 0;
+
+        width: calc(7 * var(--cube-width));
+        height: var(--cube-height);
+        perspective: 350px;
+
+        font-family: "Inter", "Poppins", sans-serif;
+        font-size: var(--font-size);
+        font-weight: 800;
+        color: transparent;
+      }
+
+      .loader-cube {
+        position: relative;
+        transform-style: preserve-3d;
+      }
+      .loader-cube .loader-face {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: var(--cube-width);
+        height: var(--cube-height);
+        background-color: var(--cube-color);
+      }
+      .loader-face-left,
+      .loader-face-right,
+      .loader-face-back,
+      .loader-face-front {
+        box-shadow:
+          inset 0 0 2px 1px #0001,
+          inset 0 0 12px 1px #fff1;
+      }
+      .loader-face-front {
+        transform: rotateY(0deg) translateZ(calc(var(--cube-width) / 2));
+      }
+      .loader-face-back {
+        transform: rotateY(180deg) translateZ(calc(var(--cube-width) / 2));
+        opacity: 0.6;
+      }
+      .loader-face-left {
+        transform: rotateY(-90deg) translateZ(calc(var(--cube-width) / 2));
+        opacity: 0.6;
+      }
+      .loader-face-right {
+        transform: rotateY(90deg) translateZ(calc(var(--cube-width) / 2));
+        opacity: 0.6;
+      }
+      .loader-face-top {
+        height: var(--cube-width);
+        transform: rotateX(90deg) translateZ(calc(var(--cube-width) / 2));
+        opacity: 0.8;
+      }
+      .loader-face-bottom {
+        height: var(--cube-width);
+        transform: rotateX(-90deg)
+          translateZ(calc(var(--cube-height) - var(--cube-width) * 0.5));
+        opacity: 0.8;
+      }
+
+      .loader-cube:nth-child(1) {
+        z-index: 0;
+        animation-delay: 0s;
+      }
+      .loader-cube:nth-child(2) {
+        z-index: 1;
+        animation-delay: 0.2s;
+      }
+      .loader-cube:nth-child(3) {
+        z-index: 2;
+        animation-delay: 0.4s;
+      }
+      .loader-cube:nth-child(4) {
+        z-index: 3;
+        animation-delay: 0.6s;
+      }
+      .loader-cube:nth-child(5) {
+        z-index: 2;
+        animation-delay: 0.8s;
+      }
+      .loader-cube:nth-child(6) {
+        z-index: 1;
+        animation-delay: 1s;
+      }
+      .loader-cube:nth-child(7) {
+        z-index: 0;
+        animation-delay: 1.2s;
+      }
+
+      .loader-cube {
+        animation: loader-translate-z var(--animation-duration) ease-in-out
+          infinite;
+      }
+      .loader-cube .loader-face {
+        animation:
+          loader-face-color var(--animation-duration) ease-in-out infinite,
+          loader-edge-glow var(--animation-duration) ease-in-out infinite;
+        animation-delay: inherit;
+      }
+      .loader-cube .loader-face.loader-face-front {
+        animation:
+          loader-face-color var(--animation-duration) ease-in-out infinite,
+          loader-face-glow var(--animation-duration) ease-in-out infinite,
+          loader-edge-glow var(--animation-duration) ease-in-out infinite;
+        animation-delay: inherit;
+      }
+
+      @keyframes loader-translate-z {
+        0%,
+        40%,
+        100% {
+          transform: translateZ(-2px);
+        }
+        30% {
+          transform: translateZ(16px) translateY(-1px);
+        }
+      }
+      @keyframes loader-face-color {
+        0%,
+        50%,
+        100% {
+          background-color: var(--cube-color);
+        }
+        10% {
+          background-color: var(--highlight-color);
+        }
+      }
+      @keyframes loader-face-glow {
+        0%,
+        50%,
+        100% {
+          color: #fff0;
+          filter: none;
+        }
+        30% {
+          color: #fff;
+          filter: drop-shadow(0 14px 10px var(--highlight-color));
+        }
+      }
+      @keyframes loader-edge-glow {
+        0%,
+        40%,
+        100% {
+          box-shadow:
+            inset 0 0 2px 1px #0001,
+            inset 0 0 12px 1px #fff1;
+        }
+        30% {
+          box-shadow: 0 0 2px 0px var(--highlight-color);
+        }
+      }
+
+      /* small-screen tweaks */
+      @media (max-width: 480px) {
+        .loader-wrapper-grid {
+          --cube-width: 32px;
+          --cube-height: 32px;
+          --font-size: 1.2em;
+          width: calc(7 * 32px);
+          height: 32px;
+        }
+      }
       /* ===== HOMEPAGE STYLES (from first file) ===== */
       .hrshero {
         position: relative;
@@ -2354,6 +2551,76 @@
   </head>
 
   <body>
+    <!-- ================================================================ -->
+    <!-- LOADER OVERLAY — 3D cubes spelling "LOADING"                     -->
+    <!-- ================================================================ -->
+    <div id="loader-overlay" aria-hidden="true">
+      <div class="loader-wrapper-grid">
+        <!-- L -->
+        <div class="loader-cube">
+          <div class="loader-face loader-face-front">L</div>
+          <div class="loader-face loader-face-back"></div>
+          <div class="loader-face loader-face-right"></div>
+          <div class="loader-face loader-face-left"></div>
+          <div class="loader-face loader-face-top"></div>
+          <div class="loader-face loader-face-bottom"></div>
+        </div>
+        <!-- O -->
+        <div class="loader-cube">
+          <div class="loader-face loader-face-front">O</div>
+          <div class="loader-face loader-face-back"></div>
+          <div class="loader-face loader-face-right"></div>
+          <div class="loader-face loader-face-left"></div>
+          <div class="loader-face loader-face-top"></div>
+          <div class="loader-face loader-face-bottom"></div>
+        </div>
+        <!-- A -->
+        <div class="loader-cube">
+          <div class="loader-face loader-face-front">A</div>
+          <div class="loader-face loader-face-back"></div>
+          <div class="loader-face loader-face-right"></div>
+          <div class="loader-face loader-face-left"></div>
+          <div class="loader-face loader-face-top"></div>
+          <div class="loader-face loader-face-bottom"></div>
+        </div>
+        <!-- D -->
+        <div class="loader-cube">
+          <div class="loader-face loader-face-front">D</div>
+          <div class="loader-face loader-face-back"></div>
+          <div class="loader-face loader-face-right"></div>
+          <div class="loader-face loader-face-left"></div>
+          <div class="loader-face loader-face-top"></div>
+          <div class="loader-face loader-face-bottom"></div>
+        </div>
+        <!-- I -->
+        <div class="loader-cube">
+          <div class="loader-face loader-face-front">I</div>
+          <div class="loader-face loader-face-back"></div>
+          <div class="loader-face loader-face-right"></div>
+          <div class="loader-face loader-face-left"></div>
+          <div class="loader-face loader-face-top"></div>
+          <div class="loader-face loader-face-bottom"></div>
+        </div>
+        <!-- N -->
+        <div class="loader-cube">
+          <div class="loader-face loader-face-front">N</div>
+          <div class="loader-face loader-face-back"></div>
+          <div class="loader-face loader-face-right"></div>
+          <div class="loader-face loader-face-left"></div>
+          <div class="loader-face loader-face-top"></div>
+          <div class="loader-face loader-face-bottom"></div>
+        </div>
+        <!-- G -->
+        <div class="loader-cube">
+          <div class="loader-face loader-face-front">G</div>
+          <div class="loader-face loader-face-back"></div>
+          <div class="loader-face loader-face-right"></div>
+          <div class="loader-face loader-face-left"></div>
+          <div class="loader-face loader-face-top"></div>
+          <div class="loader-face loader-face-bottom"></div>
+        </div>
+      </div>
+    </div>
     <!-- ============================================================ -->
     <!-- ===== NAVBAR (from second file) ===== -->
     <!-- ============================================================ -->
@@ -4644,6 +4911,31 @@
     <script>
       (function () {
         "use strict";
+        // ================================================================
+        // LOADER: hide when page is fully loaded
+        // ================================================================
+        var loader = document.getElementById("loader-overlay");
+
+        function hideLoader() {
+          if (loader) {
+            loader.classList.add("hidden");
+            // remove from DOM after transition to keep markup clean
+            setTimeout(function () {
+              if (loader.parentNode) {
+                loader.parentNode.removeChild(loader);
+              }
+            }, 800);
+          }
+        }
+
+        // If everything is already loaded, hide immediately.
+        if (document.readyState === "complete") {
+          hideLoader();
+        } else {
+          window.addEventListener("load", hideLoader);
+          // fallback: if load event takes too long, hide after 6s
+          setTimeout(hideLoader, 6000);
+        }
 
         // ============================================================
         // HOMEPAGE SCRIPTS (from first file)
